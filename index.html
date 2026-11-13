@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html lang="es" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal Académico LIDTS - Desarrollo Humano (S1 a S6) | UNACH</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            unach: { gold: '#D4AF37', blue: '#002855', dark: '#0B0F17', card: '#151C28' }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { background-color: #0B0F17; color: #E2E8F0; }
+    .apa-ref { padding-left: 2rem; text-indent: -2rem; margin-bottom: 0.65rem; font-size: 0.85rem; color: #94A3B8; }
+    .report-page-break { page-break-after: always; break-after: page; }
+    @media print {
+      @page { size: letter; margin: 2cm; }
+      .no-print, #view-blog, #sidebar-nav { display: none !important; }
+      body { background: white !important; color: black !important; }
+      #view-reporte {
+        display: block !important;
+        background: white !important;
+        color: black !important;
+        border: none !important;
+        padding: 0 !important;
+        width: 100% !important;
+      }
+      #view-reporte * {
+        color: black !important;
+        border-color: #CBD5E1 !important;
+      }
+      #view-reporte .report-card {
+        background: #F8FAFC !important;
+        border: 1px solid #94A3B8 !important;
+        break-inside: avoid;
+      }
+      #view-reporte .cover-sheet {
+        min-height: 90vh !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        text-align: center !important;
+        border: 3px double #002855 !important;
+        padding: 2cm 1.5cm !important;
+        page-break-after: always !important;
+        break-after: page !important;
+      }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col font-sans">
+
+  <!-- MEMBRETE INSTITUCIONAL UNACH (5%) -->
+  <header class="sticky top-0 z-50 bg-[#0B0F17]/95 backdrop-blur border-b border-amber-500/30 no-print">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-11 h-11 rounded-lg bg-gradient-to-br from-amber-500 to-yellow-600 flex items-center justify-center text-slate-950 font-extrabold text-sm shadow">
+          UNACH
+        </div>
+        <div>
+          <p class="text-[11px] font-mono uppercase tracking-widest text-amber-400">Universidad Autónoma de Chiapas • Facultad de Negocios / Ingeniería</p>
+          <h1 class="text-sm sm:text-base font-bold text-white">Licenciatura en Ingeniería en Desarrollo y Tecnologías de Software (LIDTS)</h1>
+        </div>
+      </div>
+
+      <!-- Selector de Vista: Blog vs Reporte Escrito (30%) -->
+      <div class="flex items-center gap-2">
+        <button onclick="switchView('blog')" id="btn-blog" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-amber-500 text-slate-950 transition">
+          🌐 Blog Interactivo (S1 - S6)
+        </button>
+        <button onclick="switchView('reporte')" id="btn-reporte" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-200 hover:bg-slate-700 border border-slate-700 transition">
+          📄 Reporte Escrito Formal (30%)
+        </button>
+        <button onclick="switchView('reporte'); setTimeout(() => window.print(), 150);" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600 hover:bg-emerald-500 text-white transition">
+          🖨️ Imprimir / PDF
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENEDOR PRINCIPAL -->
+  <div class="max-w-7xl mx-auto w-full px-4 py-6 flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+    <!-- ÍNDICE LATERAL INTERACTIVO (5%) -->
+    <aside id="sidebar-nav" class="lg:col-span-3 no-print">
+      <div class="sticky top-20 bg-[#151C28] border border-slate-800 rounded-xl p-4 space-y-4 max-h-[82vh] overflow-y-auto">
+        <div class="border-b border-slate-800 pb-3">
+          <span class="text-[11px] font-mono uppercase text-amber-400">Índice General del Curso</span>
+          <h2 class="text-sm font-bold text-white mt-0.5">Subcompetencias 1 a 6</h2>
+        </div>
+
+        <nav class="space-y-3 text-xs">
+          <div>
+            <a href="#sub1" class="font-bold text-cyan-400 hover:underline block">Subcompetencia 1: Desarrollo Humano</a>
+            <ul class="pl-3 mt-1 space-y-1 text-slate-400 border-l border-slate-700">
+              <li><a href="#t1-1" class="hover:text-white">1.1 ¿Qué es el Desarrollo Humano?</a></li>
+              <li><a href="#t1-2" class="hover:text-white">1.2 Pirámide de Maslow vs. Pruebas</a></li>
+              <li><a href="#t1-3" class="hover:text-white">1.3 Temperamento, Carácter y Personalidad</a></li>
+              <li><a href="#t1-4" class="hover:text-white">1.4 Recursos Individuales y Rol Ciudadano</a></li>
+              <li><a href="#t1-5" class="hover:text-white">1.5 Asunción de Realidad y FODA (S1-AA-T4)</a></li>
+              <li><a href="#act-s1" class="text-amber-400 font-medium">🎮 Actividad Lúdica S1</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <a href="#sub2" class="font-bold text-indigo-400 hover:underline block">Subcompetencia 2: Equilibrio y Plan de Vida</a>
+            <ul class="pl-3 mt-1 space-y-1 text-slate-400 border-l border-slate-700">
+              <li><a href="#t2-1" class="hover:text-white">2.1 Equilibrio y Superación Personal</a></li>
+              <li><a href="#t2-2" class="hover:text-white">2.2 Índices de Calidad de Vida</a></li>
+              <li><a href="#t2-3" class="hover:text-white">2.3 Plan de Vida (Humanista/Existencial)</a></li>
+              <li><a href="#act-s2" class="text-amber-400 font-medium">🎮 Actividad Lúdica S2</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <a href="#sub3" class="font-bold text-emerald-400 hover:underline block">Subcompetencia 3: Potencial y Autoestima Tech</a>
+            <ul class="pl-3 mt-1 space-y-1 text-slate-400 border-l border-slate-700">
+              <li><a href="#t3-1" class="hover:text-white">3.1 Potencialidades Humanas</a></li>
+              <li><a href="#t3-2" class="hover:text-white">3.2 Autoconocimiento y Autoconcepto</a></li>
+              <li><a href="#t3-3" class="hover:text-white">3.3 Autoestima (Enfoque para Tecnólogos)</a></li>
+              <li><a href="#act-s3" class="text-amber-400 font-medium">🎮 Actividad Lúdica S3</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <a href="#sub4" class="font-bold text-purple-400 hover:underline block">Subcompetencia 4: Valores y Tecnoética</a>
+            <ul class="pl-3 mt-1 space-y-1 text-slate-400 border-l border-slate-700">
+              <li><a href="#t4-1" class="hover:text-white">4.1 ¿Qué son los valores?</a></li>
+              <li><a href="#t4-2" class="hover:text-white">4.2 Concepción de Valor</a></li>
+              <li><a href="#t4-3" class="hover:text-white">4.3 Clasificación de los Valores</a></li>
+              <li><a href="#t4-4" class="hover:text-white">4.4 Ética en la Ciencia y Tecnología</a></li>
+              <li><a href="#act-s4" class="text-amber-400 font-medium">🎮 Actividad Lúdica S4</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <a href="#sub5" class="font-bold text-rose-400 hover:underline block">Subcompetencia 5: Cultura y Tecnología</a>
+            <ul class="pl-3 mt-1 space-y-1 text-slate-400 border-l border-slate-700">
+              <li><a href="#t5-1" class="hover:text-white">5.1 La Cultura</a></li>
+              <li><a href="#t5-2" class="hover:text-white">5.2 Adopción y Desarrollo Tecnológico</a></li>
+              <li><a href="#t5-3" class="hover:text-white">5.3 Experiencias, Cultura Social y Org.</a></li>
+              <li><a href="#act-s5" class="text-amber-400 font-medium">🎮 Actividad Lúdica S5</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <a href="#sub6" class="font-bold text-lime-400 hover:underline block">Subcompetencia 6: Huella Digital y Green Code</a>
+            <ul class="pl-3 mt-1 space-y-1 text-slate-400 border-l border-slate-700">
+              <li><a href="#t6-1" class="hover:text-white">6.1 La Huella Ecológica Digital</a></li>
+              <li><a href="#t6-2" class="hover:text-white">6.2 ¿Dónde se genera el impacto?</a></li>
+              <li><a href="#t6-3" class="hover:text-white">6.3 Compromiso Ambiental y Green Coding</a></li>
+              <li><a href="#act-s6" class="text-amber-400 font-medium">🎮 Actividad Lúdica S6</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </aside>
+
+    <!-- ========================================== -->
+    <!-- VISTA 1: BLOG INTERACTIVO (S1 A S6)        -->
+    <!-- ========================================== -->
+    <main id="view-blog" class="lg:col-span-9 space-y-12">
+
+      <!-- ================================================= -->
+      <!-- SUBCOMPETENCIA 1                                  -->
+      <!-- ================================================= -->
+      <section id="sub1" class="bg-[#151C28] border border-cyan-500/30 rounded-2xl p-6 space-y-8">
+        <div class="border-b border-slate-800 pb-4">
+          <span class="px-2.5 py-1 rounded bg-cyan-500/10 text-cyan-400 font-mono text-xs">SUBCOMPETENCIA 1</span>
+          <h2 class="text-2xl font-extrabold text-white mt-2">Comprende la importancia del desarrollo humano</h2>
+        </div>
+
+        <!-- Tema 1.1 -->
+        <article id="t1-1" class="space-y-4">
+          <h3 class="text-lg font-bold text-cyan-400">1.1 ¿Qué es el desarrollo humano?</h3>
+          <p class="text-sm text-slate-300 leading-relaxed">
+            El desarrollo humano se refiere al proceso mediante el cual las personas adquieren habilidades, conocimientos y capacidades que les permiten llevar una vida plena y satisfactoria. Este concepto va más allá de las simples medidas económicas, como el ingreso per cápita, y se centra en el bienestar integral del individuo. Implica la expansión de las libertades y oportunidades que las personas tienen para vivir de manera digna y alcanzar su máximo potencial (Sen, 2000; CEUPE, s.f.).
+          </p>
+          <p class="text-sm text-slate-300 leading-relaxed">
+            El enfoque del desarrollo humano se basa en la idea de que cada persona tiene el derecho de desarrollarse plenamente en todas las áreas de su vida: acceso a la educación, salud, participación en la vida social y política, y la posibilidad de tomar decisiones que afectan su vida, convirtiéndose en un proceso continuo desde la infancia hasta la vejez.
+          </p>
+          <div class="bg-cyan-950/30 border-l-4 border-cyan-400 p-4 rounded-r-lg">
+            <h4 class="text-xs font-mono uppercase text-cyan-300 font-bold">💻 Importancia en el Desarrollo de Software (LIDTS)</h4>
+            <p class="text-xs text-slate-300 mt-1">
+              En la Ingeniería en Desarrollo y Tecnologías de Software, comprender el desarrollo humano permite diseñar sistemas centrados en el usuario (Human-Centered Design) que amplíen las libertades de los ciudadanos (accesibilidad web, plataformas educativas y de salud) en lugar de enfocarse únicamente en métricas financieras.
+            </p>
+          </div>
+          <div class="pt-2 border-t border-slate-800">
+            <p class="text-xs font-mono text-slate-400 mb-1">Bibliografía (APA 7):</p>
+            <p class="apa-ref">Centro Europeo de Postgrado [CEUPE]. (s.f.). <em>Desarrollo humano: Qué es, tipos y cómo influye</em>. https://www.ceupe.com/blog/desarrollo-humano-que-es-tipos-y-como-influye.html</p>
+            <p class="apa-ref">Sen, A. (2000). <em>Desarrollo y libertad</em>. Editorial Planeta.</p>
+          </div>
+        </article>
+
+        <!-- Tema 1.2 -->
+        <article id="t1-2" class="space-y-4 pt-6 border-t border-slate-800">
+          <h3 class="text-lg font-bold text-cyan-400">1.2 ¿Qué es la Pirámide de Maslow y qué es la Pirámide de Pruebas?</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-slate-900/70 p-4 rounded-xl border border-slate-800 space-y-2">
+              <h4 class="font-bold text-white text-sm">Pirámide de Maslow (1943)</h4>
+              <p class="text-xs text-slate-300">
+                Abraham Maslow presentó en su <em>"Teoría de la Motivación Humana"</em> (1943) una jerarquía donde, a medida que los individuos satisfacen de "manera razonable" las necesidades más básicas, desarrollan deseos más elevados ordenados según su fuerza:
+              </p>
+              <ul class="text-xs space-y-1 text-slate-300">
+                <li>🟣 <strong>5. Autorrealización:</strong> Moralidad, creatividad, espontaneidad, falta de prejuicios, aceptación de hechos, resolución de problemas.</li>
+                <li>🟢 <strong>4. Reconocimiento:</strong> Autorreconocimiento, confianza, respeto, éxito.</li>
+                <li>🟡 <strong>3. Afiliación:</strong> Amistad, afecto, intimidad sexual.</li>
+                <li>🟠 <strong>2. Seguridad:</strong> Seguridad física, de empleo, de recursos, moral, familiar, de salud, de propiedad privada.</li>
+                <li>🔴 <strong>1. Fisiología (Base):</strong> Respiración, alimentación, descanso, sexo, homeostasis.</li>
+              </ul>
+            </div>
+            <div class="bg-slate-900/70 p-4 rounded-xl border border-slate-800 space-y-2">
+              <h4 class="font-bold text-white text-sm">Pirámide de Pruebas de Software (Mike Cohn, 2009)</h4>
+              <p class="text-xs text-slate-300">
+                Introducida por Mike Cohn en <em>Succeeding with Agile: Software Development Using Scrum</em> (2009), equilibra las pruebas automatizadas bajo la regla general <strong>70/20/10</strong>:
+              </p>
+              <ul class="text-xs space-y-1.5 text-slate-300">
+                <li>🔼 <strong>10% Pruebas de extremo a extremo (E2E - Cúspide):</strong> Verifican toda la aplicación como la experimentarían los usuarios finales (UI, API, BD). Más complejas, lentas y costosas; se ejecutan en hitos antes de lanzamientos.</li>
+                <li>🟦 <strong>20% Pruebas de integración (Centro):</strong> Verifican la interacción entre diferentes módulos o sistemas externos tras cambios importantes en la rama principal.</li>
+                <li>🟩 <strong>70% Pruebas unitarias (Base):</strong> Se centran en una única funcionalidad y pequeñas unidades de código. Numerosas, rápidas y ejecutadas en Integración Continua (CI).</li>
+              </ul>
+            </div>
+          </div>
+          <div class="bg-cyan-950/30 border-l-4 border-cyan-400 p-4 rounded-r-lg">
+            <h4 class="text-xs font-mono uppercase text-cyan-300 font-bold">💻 Importancia en el Desarrollo de Software (LIDTS)</h4>
+            <p class="text-xs text-slate-300 mt-1">
+              Así como un desarrollador no puede alcanzar la resolución creativa de problemas (Autorrealización) sin descanso ni seguridad laboral (base de Maslow), una arquitectura de software colapsa si intenta validar el sistema solo con pruebas E2E sin sostenerse en una base sólida de 70% de pruebas unitarias automatizadas.
+            </p>
+          </div>
+          <div class="pt-2 border-t border-slate-800">
+            <p class="text-xs font-mono text-slate-400 mb-1">Bibliografía (APA 7):</p>
+            <p class="apa-ref">Cohn, M. (2009). <em>Succeeding with Agile: Software Development Using Scrum</em>. Addison-Wesley Professional.</p>
+            <p class="apa-ref">Instituto Europeo de Psicología Positiva [IEPP]. (s.f.). <em>Pirámide de Maslow</em>. https://www.iepp.es/piramide-de-maslow/</p>
+            <p class="apa-ref">Maslow, A. H. (1943). A theory of human motivation. <em>Psychological Review</em>, 50(4), 370–396.</p>
+          </div>
+        </article>
+
+        <!-- Tema 1.3 -->
+        <article id="t1-3" class="space-y-4 pt-6 border-t border-slate-800">
+          <h3 class="text-lg font-bold text-cyan-400">1.3 Temperamento, Carácter y Personalidad</h3>
+          <p class="text-sm text-slate-300">
+            El <strong>temperamento</strong> es la parte biológica e innata con la que nacemos; el <strong>carácter</strong> se forma a través de las experiencias, la educación y el entorno social; y la <strong>personalidad</strong> es la suma total de ambos elementos, reflejando cómo pensamos, sentimos y actuamos en nuestra vida diaria.
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+              <h4 class="font-bold text-amber-400 mb-2">1. Temperamento</h4>
+              <p><strong>Origen:</strong> Genético y biológico (sistema nervioso y hormonas).</p>
+              <p><strong>Momento:</strong> Se manifiesta desde los primeros meses de vida.</p>
+              <p><strong>Cambio:</strong> Es muy estable y difícil de modificar.</p>
+              <p><strong>Ejemplo:</strong> Reaccionar con rapidez o calma ante un ruido fuerte de forma espontánea.</p>
+            </div>
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+              <h4 class="font-bold text-emerald-400 mb-2">2. Carácter</h4>
+              <p><strong>Origen:</strong> Ambiental, cultural y educativo.</p>
+              <p><strong>Momento:</strong> Se desarrolla y se pule durante la infancia y adolescencia.</p>
+              <p><strong>Cambio:</strong> Se puede modificar y moldear con esfuerzo consciente y madurez.</p>
+              <p><strong>Ejemplo:</strong> La paciencia, la honestidad o la perseverancia que aprendemos con los años.</p>
+            </div>
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+              <h4 class="font-bold text-cyan-400 mb-2">3. Personalidad</h4>
+              <p><strong>Origen:</strong> La unión de la biología (temperamento) y la experiencia (carácter).</p>
+              <p><strong>Momento:</strong> Se consolida de forma global al llegar a la edad adulta.</p>
+              <p><strong>Cambio:</strong> Relativamente estable, pero evoluciona ante vivencias importantes.</p>
+              <p><strong>Ejemplo:</strong> Ser una persona introvertida (<em>temperamento</em>) pero justa y trabajadora (<em>carácter</em>).</p>
+            </div>
+          </div>
+          <div class="bg-cyan-950/30 border-l-4 border-cyan-400 p-4 rounded-r-lg">
+            <h4 class="text-xs font-mono uppercase text-cyan-300 font-bold">💻 Importancia en el Desarrollo de Software (LIDTS)</h4>
+            <p class="text-xs text-slate-300 mt-1">
+              Reconocer que el carácter (paciencia, perseverancia y honestidad al documentar bugs) se moldea con esfuerzo consciente permite que programadores con distintos temperamentos colaboren armónicamente en células ágiles Scrum.
+            </p>
+          </div>
+          <div class="pt-2 border-t border-slate-800">
+            <p class="text-xs font-mono text-slate-400 mb-1">Bibliografía (APA 7):</p>
+            <p class="apa-ref">Allport, G. W. (1961). <em>Pattern and growth in personality</em>. Holt, Rinehart & Winston.</p>
+            <p class="apa-ref">Cloninger, C. R. (2004). <em>Feeling good: The science of well-being</em>. Oxford University Press.</p>
+          </div>
+        </article>
+
+        <!-- Tema 1.4 -->
+        <article id="t1-4" class="space-y-4 pt-6 border-t border-slate-800">
+          <h3 class="text-lg font-bold text-cyan-400">1.4 Identificación de Recursos Individuales y el Rol del Ciudadano en la Comunidad</h3>
+          <p class="text-sm text-slate-300">
+            La identificación de recursos individuales permite reconocer las capacidades, conocimientos y herramientas propias de cada persona para incidir en su entorno, mientras que el rol ciudadano define la responsabilidad activa en la vida pública, la defensa de derechos y la construcción del bienestar comunitario.
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-1.5">
+              <h4 class="font-bold text-white">Recursos Individuales en la Acción Ciudadana</h4>
+              <p>• <strong>Habilidades y talentos:</strong> Comunicación, liderazgo, diseño u organización logística aportables a proyectos colectivos.</p>
+              <p>• <strong>Conocimiento y saberes:</strong> Formación académica, experiencia laboral o conocimientos técnicos útiles para resolver problemas del vecindario o la ciudad.</p>
+              <p>• <strong>Tiempo y disponibilidad:</strong> Margen de acción personal invertido en actividades comunitarias o voluntariados.</p>
+              <p>• <strong>Redes de contacto:</strong> Relaciones interpersonales que facilitan la convocatoria y difusión.</p>
+              <p>• <strong>Acceso a información y tecnología:</strong> Uso de herramientas digitales y canales de transparencia para fiscalizar y proponer mejoras públicas.</p>
+            </div>
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-1.5">
+              <h4 class="font-bold text-white">El Rol del Ciudadano en la Comunidad</h4>
+              <p>• <strong>Participación activa:</strong> Ir más allá del voto electoral mediante presupuestos participativos, consultas o asambleas locales.</p>
+              <p>• <strong>Corresponsabilidad social:</strong> Asumir el cuidado del espacio público, el respeto a la diversidad y la protección del medio ambiente.</p>
+              <p>• <strong>Vigilancia y exigencia:</strong> Monitorear el trabajo de las autoridades, exigir rendición de cuentas y usar el derecho de petición.</p>
+              <p>• <strong>Articulación comunitaria:</strong> Fomentar la cohesión social colaborando con vecinos y organizaciones civiles para atender carencias locales.</p>
+            </div>
+          </div>
+          <div class="bg-cyan-950/30 border-l-4 border-cyan-400 p-4 rounded-r-lg">
+            <h4 class="text-xs font-mono uppercase text-cyan-300 font-bold">💻 Importancia en el Desarrollo de Software (LIDTS)</h4>
+            <p class="text-xs text-slate-300 mt-1">
+              El ingeniero en software aporta sus <em>conocimientos técnicos y acceso a la tecnología</em> para construir plataformas de <em>Civic Tech</em> (datos abiertos, portales de transparencia y atención vecinal) que fortalecen la vigilancia ciudadana y la articulación comunitaria.
+            </p>
+          </div>
+          <div class="pt-2 border-t border-slate-800">
+            <p class="text-xs font-mono text-slate-400 mb-1">Bibliografía (APA 7):</p>
+            <p class="apa-ref">Cortina, A. (2009). <em>Ciudadanos del mundo: Hacia una teoría de la ciudadanía</em> (3.ª ed.). Alianza Editorial.</p>
+          </div>
+        </article>
+
+        <!-- Tema 1.5 -->
+        <article id="t1-5" class="space-y-4 pt-6 border-t border-slate-800">
+          <h3 class="text-lg font-bold text-cyan-400">1.5 Asunción de la Realidad Personal, Situación de Vida y FODA Personal (S1-AA-T4)</h3>
+          <p class="text-sm text-slate-300">
+            La asunción de la realidad personal y la situación de vida es el acto consciente de aceptar sin resistencia el punto exacto en el que te encuentras hoy. Significa dejar de negar las circunstancias actuales para frenar el desgaste de energía y empezar a tomar decisiones prácticas basadas en hechos reales, articuladas mediante la herramienta de diagnóstico <strong>FODA Personal (S1-AA-T4)</strong>.
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-1">
+              <h4 class="font-bold text-amber-400">Claves para asumir tu situación actual</h4>
+              <p>• <strong>Cero culpa:</strong> Acepta lo que hay sin juzgarte ni castigar el pasado.</p>
+              <p>• <strong>Verdad sin filtros:</strong> Mira tus finanzas, salud, trabajo y relaciones tal como son hoy.</p>
+              <p>• <strong>Fin de la queja:</strong> Deja de gastar energía en desear que el punto de partida fuera distinto.</p>
+              <p>• <strong>Punto cero:</strong> Entiende que este momento es solo tu base de operación, no una condena fija.</p>
+            </div>
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-1">
+              <h4 class="font-bold text-emerald-400">Pasos para avanzar desde la aceptación</h4>
+              <p>• <strong>Identifica lo que controlas:</strong> Separa los problemas que puedes cambiar hoy de los factores externos que no dependen de ti.</p>
+              <p>• <strong>Pon metas pequeñas:</strong> Diseña acciones diarias muy fáciles de cumplir para mejorar un solo aspecto a la vez.</p>
+              <p>• <strong>Ajusta tus expectativas:</strong> Alinea tus planes diarios con tus recursos actuales reales y no con ideales lejanos.</p>
+              <p>• <strong>Monitorea tu avance:</strong> Revisa cada semana qué funciona y cambia con rapidez lo que no da resultados.</p>
+            </div>
+          </div>
+          <div class="bg-cyan-950/30 border-l-4 border-cyan-400 p-4 rounded-r-lg">
+            <h4 class="text-xs font-mono uppercase text-cyan-300 font-bold">💻 Importancia en el Desarrollo de Software (LIDTS)</h4>
+            <p class="text-xs text-slate-300 mt-1">
+              En ingeniería de software, asumir el "Punto Cero" con "Verdad sin filtros" equivale a auditar la deuda técnica real de un repositorio sin culpas (<em>blameless post-mortem</em>) y realizar un FODA técnico personal para iterar semanalmente como en una retrospectiva ágil.
+            </p>
+          </div>
+          <div class="pt-2 border-t border-slate-800">
+            <p class="text-xs font-mono text-slate-400 mb-1">Bibliografía (APA 7):</p>
+            <p class="apa-ref">Hayes, S. C., Strosahl, K. D., & Wilson, K. G. (2012). <em>Acceptance and commitment therapy: The process and practice of mindful change</em> (2nd ed.). Guilford Press.</p>
+          </div>
+        </article>
+
+        <!-- ACTIVIDAD LÚDICA S1 -->
+        <div id="act-s1" class="bg-slate-900 border border-cyan-500/40 rounded-xl p-5 space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-mono uppercase text-amber-400 font-bold">🎮 Actividad Lúdica • Subcompetencia 1</span>
+            <span class="text-xs text-slate-400">Validador Pirámide QA (70/20/10) + FODA S1-AA-T4</span>
+          </div>
+          <p class="text-xs text-slate-300">Ajusta la proporción de pruebas según Mike Cohn (2009) para validar el despliegue del sistema:</p>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+            <div class="bg-slate-950 p-3 rounded border border-slate-800">
+              <label class="block font-bold text-emerald-400">Pruebas Unitarias (%)</label>
+              <input id="qa-unit" type="number" value="70" class="w-full mt-1 bg-slate-900 border border-slate-700 rounded px-2 py-1 text-white">
+            </div>
+            <div class="bg-slate-950 p-3 rounded border border-slate-800">
+              <label class="block font-bold text-cyan-400">Pruebas Integración (%)</label>
+              <input id="qa-int" type="number" value="20" class="w-full mt-1 bg-slate-900 border border-slate-700 rounded px-2 py-1 text-white">
+            </div>
+            <div class="bg-slate-950 p-3 rounded border border-slate-800">
+              <label class="block font-bold text-purple-400">Pruebas E2E (%)</label>
+              <input id="qa-e2e" type="number" value="10" class="w-full mt-1 bg-slate-900 border border-slate-700 rounded px-2 py-1 text-white">
+            </div>
+          </div>
+          <button onclick="checkQAPyramid()" class="px-4 py-2 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs rounded-lg transition">
+            Verificar Regla 70/20/10 de Mike Cohn
+          </button>
+          <p id="qa-feedback" class="text-xs font-mono text-emerald-400"></p>
+        </div>
+      </section>
+
+      <!-- ================================================= -->
+      <!-- SUBCOMPETENCIA 2                                  -->
+      <!-- ================================================= -->
+      <section id="sub2" class="bg-[#151C28] border border-indigo-500/30 rounded-2xl p-6 space-y-8">
+        <div class="border-b border-slate-800 pb-4">
+          <span class="px-2.5 py-1 rounded bg-indigo-500/10 text-indigo-400 font-mono text-xs">SUBCOMPETENCIA 2</span>
+          <h2 class="text-2xl font-extrabold text-white mt-2">Equilibrio Personal, Calidad de Vida y Proyecto de Vida</h2>
+        </div>
+
+        <!-- Tema 2.1 -->
+        <article id="t2-1" class="space-y-4">
+          <h3 class="text-lg font-bold text-indigo-400">2.1 El Equilibrio y la Superación Personal</h3>
+          <p class="text-sm text-slate-300">
+            El <strong>equilibrio y la superación personal</strong> son procesos continuos de transformación donde aprendes a gestionar tu bienestar físico, emocional y profesional.
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-1.5">
+              <h4 class="font-bold text-indigo-300">Claves para el equilibrio personal</h4>
+              <p>• <strong>Autoconocimiento:</strong> Identifica qué quieres, qué te inspira y cuáles son tus límites reales.</p>
+              <p>• <strong>Gestión del tiempo:</strong> Prioriza tareas y separa un espacio para el descanso, ya que no es falta de compromiso sino renovación.</p>
+              <p>• <strong>Salud física y mental:</strong> Duerme lo suficiente, come de manera saludable y practica la atención plena o autorreflexión.</p>
+              <p>• <strong>Inteligencia emocional:</strong> Desarrolla la autorregulación para gestionar tus emociones en lugar de reprimirlas.</p>
+            </div>
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-1.5">
+              <h4 class="font-bold text-emerald-300">Estrategias de superación</h4>
+              <p>• <strong>Establece objetivos claros:</strong> Visualiza tus metas y registra tus avances de forma constante.</p>
+              <p>• <strong>Fomenta la resiliencia:</strong> Afronta los contratiempos con optimismo y aprende de los errores sin abandonarlos.</p>
+              <p>• <strong>Aprende de forma continua:</strong> Lee, adquiere nuevos conocimientos y mantén la mente abierta a opiniones diversas.</p>
+              <p>• <strong>Rodéate de apoyo:</strong> Comparte tus metas con amigos, familiares o grupos que impulsen tu bienestar.</p>
+            </div>
+          </div>
+          <div class="bg-indigo-950/30 border-l-4 border-indigo-400 p-4 rounded-r-lg">
+            <h4 class="text-xs font-mono uppercase text-indigo-300 font-bold">💻 Importancia en el Desarrollo de Software (LIDTS)</h4>
+            <p class="text-xs text-slate-300 mt-1">
+              Previene el síndrome de <em>burnout</em> en ciclos de entrega intensivos (<em>sprints</em>), mientras que el aprendizaje continuo y la resiliencia permiten dominar nuevos lenguajes y depurar fallos complejos sin frustración.
+            </p>
+          </div>
+          <div class="pt-2 border-t border-slate-800">
+            <p class="text-xs font-mono text-slate-400 mb-1">Bibliografía (APA 7):</p>
+            <p class="apa-ref">Covey, S. R. (2015). <em>Los 7 hábitos de la gente altamente efectiva</em>. Paidós.</p>
+            <p class="apa-ref">Goleman, D. (2018). <em>La inteligencia emocional</em>. Editorial Kairós.</p>
+          </div>
+        </article>
+
+        <!-- Tema 2.2 -->
+        <article id="t2-2" class="space-y-4 pt-6 border-t border-slate-800">
+          <h3 class="text-lg font-bold text-indigo-400">2.2 Índices de Calidad de Vida</h3>
+          <p class="text-sm text-slate-300">
+            El índice de calidad de vida en México varía según la institución que lo mida, ubicando al país en el <strong>puesto 81 a nivel global</strong> según el índice de <em>Global Citizen Solutions</em> debido a retos en seguridad y costo de vida, aunque los mexicanos reportan una alta satisfacción personal con un promedio de <strong>8.62 sobre 10</strong> de acuerdo con el Instituto Nacional de Estadística y Geografía (INEGI).
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+            <div class="bg-slate-900 p-3.5 rounded-lg border border-slate-800">
+              <strong class="text-amber-400">Satisfacción personal (8.62/10):</strong> La mayoría de la población califica positivamente su entorno familiar, social y laboral.
+            </div>
+            <div class="bg-slate-900 p-3.5 rounded-lg border border-slate-800">
+              <strong class="text-rose-400">Seguridad y entorno (OCDE):</strong> El país presenta retos importantes en la tasa de homicidios y estrés ambiental en comparación con el promedio de la OCDE.
+            </div>
+            <div class="bg-slate-900 p-3.5 rounded-lg border border-slate-800">
+              <strong class="text-emerald-400">Salud (75.5 años):</strong> La esperanza de vida promedio ronda los 75.5 años, siendo mayor en mujeres (79 años) que en hombres (72 años).
+            </div>
+            <div class="bg-slate-900 p-3.5 rounded-lg border border-slate-800">
+              <strong class="text-cyan-400">Ciudades destacadas:</strong> Zonas como Mérida, Querétaro y San Luis Potosí suelen liderar los niveles de bienestar interno por su infraestructura y seguridad.
+            </div>
+          </div>
+          <div class="bg-indigo-950/30 border-l-4 border-indigo-400 p-4 rounded-r-lg">
+            <h4 class="text-xs font-mono uppercase text-indigo-300 font-bold">💻 Importancia en el Desarrollo de Software (LIDTS)</h4>
+            <p class="text-xs text-slate-300 mt-1">
+              Orienta a los ingenieros LIDTS en la creación de soluciones tecnológicas de impacto social (salud digital, seguridad ciudadana y teletrabajo en polos tecnológicos como Querétaro o Mérida).
+            </p>
+          </div>
+          <div class="pt-2 border-t border-slate-800">
+            <p class="text-xs font-mono text-slate-400 mb-1">Bibliografía (APA 7):</p>
+            <p class="apa-ref">Instituto Nacional de Estadística y Geografía [INEGI]. (2024). <em>Indicadores de Bienestar Autorreportado de la Población Urbana (BIARE)</em>. https://www.inegi.org.mx</p>
+            <p class="apa-ref">Organización para la Cooperación y el Desarrollo Económicos [OCDE]. (2024). <em>Índice para una Vida Mejor (Better Life Index)</em>. https://www.oecdbetterlifeindex.org</p>
+          </div>
+        </article>
+
+        <!-- Tema 2.3 -->
+        <article id="t2-3" class="space-y-4 pt-6 border-t border-slate-800">
+          <h3 class="text-lg font-bold text-indigo-400">2.3 Plan de Vida: Enfoque Humanista / Existencial (Carl Rogers, Viktor Frankl)</h3>
+          <p class="text-sm text-slate-300">
+            <strong>Definición:</strong> Es un plan consciente y reflexivo enfocado en la búsqueda de sentido de la existencia, donde el sujeto ejerce su libertad y autodeterminación para elegir quién quiere ser y cómo realizarse.
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+              <h4 class="font-bold text-indigo-300 mb-1">1. Rubro Académico</h4>
+              <p class="text-slate-300">Permite asumir un compromiso directo con la formación intelectual y técnica en ingeniería de software, definiendo metas de aprendizaje, pensamiento crítico y estudio autónomo continuo frente a las evoluciones tecnológicas.</p>
+            </div>
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+              <h4 class="font-bold text-emerald-300 mb-1">2. Rubro Personal</h4>
+              <p class="text-slate-300">Actúa como brújula para el autoconocimiento, la madurez emocional y los valores individuales, equilibrando las responsabilidades universitarias con la salud física y mental y la resiliencia.</p>
+            </div>
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+              <h4 class="font-bold text-amber-300 mb-1">3. Rubro Profesional</h4>
+              <p class="text-slate-300">Proyecta el perfil laboral al egresar, guiando la elección de especializaciones, certificaciones y proyectos integradores hacia la innovación, soluciones sustentables o emprendimiento de base tecnológica.</p>
+            </div>
+          </div>
+          <div class="bg-indigo-950/30 border-l-4 border-indigo-400 p-4 rounded-r-lg">
+            <h4 class="text-xs font-mono uppercase text-indigo-300 font-bold">💻 Importancia en el Desarrollo de Software (LIDTS)</h4>
+            <p class="text-xs text-slate-300 mt-1">
+              Evita la improvisación durante los semestres de LIDTS y traza una ruta clara de especialización técnica (arquitectura cloud, IA, ciberseguridad o videojuegos) alineada con la ética profesional.
+            </p>
+          </div>
+          <div class="pt-2 border-t border-slate-800">
+            <p class="text-xs font-mono text-slate-400 mb-1">Bibliografía (APA 7):</p>
+            <p class="apa-ref">Frankl, V. E. (2015). <em>El hombre en busca de sentido</em>. Herder Editorial.</p>
+            <p class="apa-ref">Rogers, C. R. (2011). <em>El proceso de convertirse en persona</em>. Paidós.</p>
+          </div>
+        </article>
+
+        <!-- ACTIVIDAD LÚDICA S2 -->
+        <div id="act-s2" class="bg-slate-900 border border-indigo-500/40 rounded-xl p-5 space-y-3">
+          <span class="text-xs font-mono uppercase text-amber-400 font-bold">🎮 Actividad Lúdica • Subcompetencia 2: Quiz Rápido de Calidad y Plan de Vida</span>
+          <p class="text-xs text-slate-300">¿Cuál es el promedio de satisfacción personal en México según el INEGI y la esperanza de vida promedio?</p>
+          <div class="flex flex-wrap gap-2">
+            <button onclick="alert('¡Correcto! Satisfacción de 8.62/10 (INEGI) y esperanza de vida de 75.5 años (79 mujeres / 72 hombres).')" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded text-xs font-semibold">A) 8.62 / 10 y 75.5 años</button>
+            <button onclick="alert('Incorrecto. Revisa los indicadores clave del Tema 2.2.')" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded text-xs">B) 6.50 / 10 y 68.0 años</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================= -->
+      <!-- SUBCOMPETENCIA 3                                  -->
+      <!-- ================================================= -->
+      <section id="sub3" class="bg-[#151C28] border border-emerald-500/30 rounded-2xl p-6 space-y-8">
+        <div class="border-b border-slate-800 pb-4">
+          <span class="px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400 font-mono text-xs">SUBCOMPETENCIA 3</span>
+          <h2 class="text-2xl font-extrabold text-white mt-2">Potencialidades Humanas, Autoconocimiento y Autoestima para Tecnólogos</h2>
+        </div>
+
+        <!-- Tema 3.1 -->
+        <article id="t3-1" class="space-y-4">
+          <h3 class="text-lg font-bold text-emerald-400">3.1 Potencialidades Humanas</h3>
+          <p class="text-sm text-slate-300">
+            Las <strong>potencialidades del ser humano</strong> son el conjunto de capacidades, talentos y recursos latentes que cada persona posee de manera innata y que puede desarrollar a lo largo de su vida para alcanzar metas y transformar su entorno.
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-1">
+              <h4 class="font-bold text-emerald-300">Dimensiones principales del potencial humano</h4>
+              <p>• <strong>Cognitiva e Intelectual:</strong> Permite razonar, aprender, memorizar y resolver problemas complejos.</p>
+              <p>• <strong>Emocional y Social:</strong> Facilita el autocontrol, la empatía, el afecto y la adaptación a distintas situaciones.</p>
+              <p>• <strong>Creativa e Innovadora:</strong> Impulsa la creación de ideas, la expresión artística y la búsqueda de nuevas soluciones.</p>
+              <p>• <strong>Física y Motora:</strong> Involucra el control del cuerpo, la destreza y la energía para la acción.</p>
+            </div>
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-1">
+              <h4 class="font-bold text-amber-300">Factores que influyen en su desarrollo</h4>
+              <p>• <strong>La actitud:</strong> Es el motor principal; una actitud positiva y motivada potencia cualquier habilidad adquirida o innata.</p>
+              <p>• <strong>El entorno y la educación:</strong> El acceso al aprendizaje, el apoyo emocional y las experiencias de vida moldean estas capacidades.</p>
+              <p>• <strong>El autoconocimiento:</strong> Reconocer las propias fortalezas y aceptar las limitaciones ayuda a trazar mejores estrategias de crecimiento personal.</p>
+            </div>
+          </div>
+          <div class="bg-emerald-950/30 border-l-4 border-emerald-400 p-4 rounded-r-lg">
+            <h4 class="text-xs font-mono uppercase text-emerald-300 font-bold">💻 Importancia en el Desarrollo de Software (LIDTS)</h4>
+            <p class="text-xs text-slate-300 mt-1">
+              Combina la dimensión cognitiva (lógica algorítmica) con la creativa e innovadora (diseño de interfaces y arquitecturas) y la emocional/social (trabajo colaborativo en Git/GitHub).
+            </p>
+          </div>
+          <div class="pt-2 border-t border-slate-800">
+            <p class="text-xs font-mono text-slate-400 mb-1">Bibliografía (APA 7):</p>
+            <p class="apa-ref">Gardner, H. (2016). <em>Estructuras de la mente: La teoría de las inteligencias múltiples</em>. Fondo de Cultura Económica.</p>
+          </div>
+        </article>
+
+        <!-- Tema 3.2 -->
+        <article id="t3-2" class="space-y-4 pt-6 border-t border-slate-800">
+          <h3 class="text-lg font-bold text-emerald-400">3.2 El Autoconocimiento y el Autoconcepto</h3>
+          <p class="text-sm text-slate-300">
+            El <strong>autoconocimiento</strong> es el proceso de investigar e identificar quién eres (tus virtudes, defectos, valores y emociones), mientras que el <strong>autoconcepto</strong> es la imagen o conclusión mental resultante de cómo te describes a ti mismo.
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-1">
+              <h4 class="font-bold text-cyan-300">Autoconocimiento (El Camino / Acción)</h4>
+              <p>• <strong>Qué es:</strong> Acción y proceso de explorar tu interior para entender cómo eres.</p>
+              <p>• <strong>Enfoque:</strong> Dinámico y basado en la observación activa de tus actos, pensamientos y reacciones.</p>
+              <p>• <strong>Para qué sirve:</strong> Base o herramienta para descubrir qué te motiva y qué necesitas mejorar.</p>
+            </div>
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-1">
+              <h4 class="font-bold text-purple-300">Autoconcepto (La Fotografía / Resultado)</h4>
+              <p>• <strong>Qué es:</strong> Conjunto de creencias, ideas y etiquetas que tienes sobre ti en distintas áreas (familiar, social, laboral o física).</p>
+              <p>• <strong>Enfoque:</strong> Más cognitivo y descriptivo; define "quién crees que eres" según tus experiencias y lo que otros dicen de ti.</p>
+              <p>• <strong>Para qué sirve:</strong> Estructura tu identidad y determina cómo te presentas ante el mundo social.</p>
+            </div>
+          </div>
+          <div class="pt-2 border-t border-slate-800">
+            <p class="text-xs font-mono text-slate-400 mb-1">Bibliografía (APA 7):</p>
+            <p class="apa-ref">Branden, N. (2011). <em>Los seis pilares de la autoestima</em>. Paidós.</p>
+          </div>
+        </article>
+
+        <!-- Tema 3.3 -->
+        <article id="t3-3" class="space-y-4 pt-6 border-t border-slate-800">
+          <h3 class="text-lg font-bold text-emerald-400">3.3 Autoestima (Enfoque para Tecnólogos)</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-1.5">
+              <h4 class="font-bold text-amber-400">1. La Definición "Tech" (El Core) & 2. Componentes</h4>
+              <p>• <strong>La analogía (SO Invisible):</strong> La autoestima no es el contenido que produces, sino el <strong>sistema operativo (SO) invisible</strong> sobre el que corren todas tus aplicaciones (proyectos, exámenes, relaciones). Si está lleno de <em>bugs</em> de autocrítica, el hardware más potente (tu inteligencia) experimentará <em>crashes</em> constantes.</p>
+              <p>• <strong>Autoconcepto (Documentación <code>README.md</code>):</strong> El archivo que escribes sobre ti mismo.</p>
+              <p>• <strong>Autoeficacia (Algoritmo de Resolución):</strong> Confianza para resolver problemas complejos alimentada de tu <em>historial de commits exitosos</em>.</p>
+              <p>• <strong>Autoaceptación (Manejo de Excepciones / <code>Try-Catch</code>):</strong> Ejecutar un bloque <code>catch</code> para reparar el fallo sin destruir el servidor.</p>
+            </div>
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-1.5">
+              <h4 class="font-bold text-rose-400">3. Síntomas "Con Bugs" & 4. Mantenimiento</h4>
+              <p>• <strong>Síndrome del Impostor (Over-fitting):</strong> Creer que tus logros son solo "suerte".</p>
+              <p>• <strong>Parálisis por Análisis:</strong> No lanzar un proyecto porque el código "no es perfecto" (olvidando que <em>hecho es mejor que perfecto</em>).</p>
+              <p>• <strong>Vincular Valor Personal al Rendimiento:</strong> Creer que si hay un error de sintaxis no sirves para la carrera.</p>
+              <p>• <strong>Buenas Prácticas:</strong> Haz <em>refactoring</em> de tu diálogo interno, celebra los <em>commits</em> pequeños y despliega en entornos seguros (hacer <em>pull request</em> con tus amigos).</p>
+            </div>
+          </div>
+          <div class="pt-2 border-t border-slate-800">
+            <p class="text-xs font-mono text-slate-400 mb-1">Bibliografía (APA 7):</p>
+            <p class="apa-ref">Bandura, A. (1997). <em>Self-efficacy: The exercise of control</em>. W. H. Freeman.</p>
+          </div>
+        </article>
+
+        <!-- ACTIVIDAD LÚDICA S3 -->
+        <div id="act-s3" class="bg-slate-900 border border-emerald-500/40 rounded-xl p-5 space-y-3">
+          <span class="text-xs font-mono uppercase text-amber-400 font-bold">🎮 Actividad Lúdica • Subcompetencia 3: Consola Try-Catch de Autoestima Tech</span>
+          <p class="text-xs text-slate-300">Excepción detectada: <code>SyntaxError en línea 42 durante examen de programación</code>. Elige qué bloque ejecutar:</p>
+          <div class="flex flex-wrap gap-2">
+            <button onclick="alert('✅ Bloque CATCH ejecutado: Autoaceptación activada. Se repara el bug sin destruir el servidor mental y se registra un nuevo commit de aprendizaje.')" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded text-xs font-mono">try { compilar(); } catch(e) { refactorizarDialogoInterno(e); }</button>
+            <button onclick="alert('💥 SYSTEM CRASH: Vinculaste tu valor personal al rendimiento de una sola compilación.')" class="px-3 py-1.5 bg-rose-900/60 hover:bg-rose-800 text-rose-200 rounded text-xs font-mono">throw new FatalImpostorSyndromeError();</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================= -->
+      <!-- SUBCOMPETENCIA 4                                  -->
+      <!-- ================================================= -->
+      <section id="sub4" class="bg-[#151C28] border border-purple-500/30 rounded-2xl p-6 space-y-8">
+        <div class="border-b border-slate-800 pb-4">
+          <span class="px-2.5 py-1 rounded bg-purple-500/10 text-purple-400 font-mono text-xs">SUBCOMPETENCIA 4</span>
+          <h2 class="text-2xl font-extrabold text-white mt-2">Valores Humanos, Axiología y Ética en la Ciencia y la Tecnología</h2>
+        </div>
+
+        <!-- Temas 4.1, 4.2, 4.3 y 4.4 -->
+        <article id="t4-1" class="space-y-3">
+          <h3 class="text-lg font-bold text-purple-400">4.1 ¿Qué son los valores?</h3>
+          <p class="text-sm text-slate-300">
+            Los valores son <strong>principios y convicciones profundas que guían nuestra manera de pensar, sentir y actuar en la vida diaria</strong>. Funcionan como una brújula interna para tomar decisiones y convivir en armonía.
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+              <h4 class="font-bold text-purple-300 mb-1">Tipos principales de valores</h4>
+              <p>• <strong>Personales:</strong> Creencias individuales que definen la propia identidad y prioridades.</p>
+              <p>• <strong>Sociales:</strong> Principios que orientan la convivencia pacífica en comunidad.</p>
+              <p>• <strong>Morales:</strong> Normas para distinguir entre conductas correctas e incorrectas.</p>
+              <p>• <strong>Familiares:</strong> Costumbres y afectos transmitidos dentro del hogar.</p>
+              <p>• <strong>Universales:</strong> Acuerdos compartidos por la gran mayoría de las culturas humanas.</p>
+            </div>
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+              <h4 class="font-bold text-amber-300 mb-1">Ejemplos cotidianos esenciales</h4>
+              <p>• <strong>Respeto:</strong> Aceptar y valorar la dignidad de cada persona.</p>
+              <p>• <strong>Honestidad:</strong> Actuar y hablar siempre con la verdad y la rectitud.</p>
+              <p>• <strong>Empatía:</strong> Comprender los sentimientos y las necesidades de los demás.</p>
+              <p>• <strong>Responsabilidad:</strong> Cumplir con los compromisos y asumir las consecuencias de los actos.</p>
+              <p>• <strong>Solidaridad:</strong> Apoyar de forma desinteresada a quienes lo necesitan.</p>
+            </div>
+          </div>
+        </article>
+
+        <article id="t4-2" class="space-y-3 pt-6 border-t border-slate-800">
+          <h3 class="text-lg font-bold text-purple-400">4.2 Concepción de Valor y 4.3 Clasificación de los Valores</h3>
+          <p class="text-xs text-slate-300">
+            • <strong>Subjetivismo axiológico:</strong> Sostiene que los valores <strong>dependen del sujeto</strong> (valen porque los deseamos, nos agradan o nos son útiles).<br>
+            • <strong>Objetivismo axiológico:</strong> Sostiene que los valores <strong>existen por sí mismos</strong> de forma intrínseca (como la belleza o la justicia) y el ser humano los descubre.
+          </p>
+          <div id="t4-3" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-xs">
+            <div class="bg-slate-900 p-3 rounded border border-slate-800"><strong>1. Éticos y Morales:</strong> Honestidad, justicia, responsabilidad, respeto, solidaridad.</div>
+            <div class="bg-slate-900 p-3 rounded border border-slate-800"><strong>2. Estéticos:</strong> Belleza, fealdad, elegancia, armonía, lo sublime.</div>
+            <div class="bg-slate-900 p-3 rounded border border-slate-800"><strong>3. Intelectuales o Cognitivos:</strong> Sabiduría, verdad, rigor científico, curiosidad, lucidez.</div>
+            <div class="bg-slate-900 p-3 rounded border border-slate-800"><strong>4. Vitales y de la Salud:</strong> Salud, vigor, juventud, bienestar, fortaleza.</div>
+            <div class="bg-slate-900 p-3 rounded border border-slate-800"><strong>5. Económicos y Útiles:</strong> Eficacia, riqueza, éxito, utilidad, ahorro.</div>
+            <div class="bg-slate-900 p-3 rounded border border-slate-800"><strong>6. Religiosos/Espirituales y 7. Sociales/Políticos:</strong> Fe, caridad, trascendencia; Libertad, igualdad, democracia, paz.</div>
+          </div>
+        </article>
+
+        <article id="t4-4" class="space-y-3 pt-6 border-t border-slate-800">
+          <h3 class="text-lg font-bold text-purple-400">4.4 La Ética en la Ciencia y la Tecnología</h3>
+          <p class="text-xs text-slate-300">
+            La ética guía la responsabilidad y los límites morales de la actividad científica y tecnológica para asegurar que sus aplicaciones beneficien a la humanidad y al medio ambiente: <strong>Ciencia (el saber)</strong>, <strong>Tecnología (el hacer)</strong> y <strong>Ética (el valor: freno y brújula)</strong>. Sus áreas clave de encuentro son la <strong>Ética científica</strong> (cero tolerancia al plagio o falsificación de datos), la <strong>Tecnoética</strong> (privacidad digital, inteligencia artificial y ciberseguridad) y la <strong>Bioética</strong>.
+          </p>
+          <div class="bg-purple-950/30 border-l-4 border-purple-400 p-4 rounded-r-lg">
+            <h4 class="text-xs font-mono uppercase text-purple-300 font-bold">💻 Importancia en el Desarrollo de Software (LIDTS)</h4>
+            <p class="text-xs text-slate-300 mt-1">
+              El software no es neutral: un ingeniero LIDTS debe aplicar la Tecnoética y el Código de Ética de ACM/IEEE para proteger la privacidad de datos, auditar sesgos en IA y practicar el hacking ético responsable.
+            </p>
+          </div>
+          <div class="pt-2 border-t border-slate-800">
+            <p class="text-xs font-mono text-slate-400 mb-1">Bibliografía (APA 7):</p>
+            <p class="apa-ref">Frondizi, R. (2010). <em>¿Qué son los valores? Introducción a la axiología</em>. Fondo de Cultura Económica.</p>
+            <p class="apa-ref">Jonas, H. (1995). <em>El principio de responsabilidad: Ensayo de una ética para la civilización tecnológica</em>. Herder.</p>
+          </div>
+        </article>
+
+        <!-- ACTIVIDAD LÚDICA S4 -->
+        <div id="act-s4" class="bg-slate-900 border border-purple-500/40 rounded-xl p-5 space-y-3">
+          <span class="text-xs font-mono uppercase text-amber-400 font-bold">🎮 Actividad Lúdica • Subcompetencia 4: Comité de Tecnoética</span>
+          <p class="text-xs text-slate-300">Una empresa solicita vender la base de datos privada de sus usuarios sin consentimiento. ¿Qué área evalúa este dilema?</p>
+          <div class="flex flex-wrap gap-2">
+            <button onclick="alert('¡Exacto! La Tecnoética analiza los dilemas morales de la innovación técnica como la privacidad digital, el uso de IA y la ciberseguridad.')" class="px-3 py-1.5 bg-purple-600 hover:bg-purple-500 text-white rounded text-xs font-semibold">Bloquear despliegue por Tecnoética (Privacidad Digital)</button>
+            <button onclick="alert('Incorrecto. Recuerda que la tecnología carece de juicio moral propio y requiere a la Ética como freno y brújula.')" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded text-xs">Aprobar solo por Valores Económicos</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================= -->
+      <!-- SUBCOMPETENCIA 5                                  -->
+      <!-- ================================================= -->
+      <section id="sub5" class="bg-[#151C28] border border-rose-500/30 rounded-2xl p-6 space-y-8">
+        <div class="border-b border-slate-800 pb-4">
+          <span class="px-2.5 py-1 rounded bg-rose-500/10 text-rose-400 font-mono text-xs">SUBCOMPETENCIA 5</span>
+          <h2 class="text-2xl font-extrabold text-white mt-2">La Cultura y su Importancia en la Adopción y Desarrollo de Tecnologías</h2>
+        </div>
+
+        <article id="t5-1" class="space-y-3">
+          <h3 class="text-lg font-bold text-rose-400">5.1 La Cultura y 5.2 Adopción y Desarrollo de Tecnologías</h3>
+          <p class="text-sm text-slate-300">
+            La <strong>cultura</strong> se define como el <strong>conjunto de valores, creencias, conocimientos, costumbres, símbolos y normas que comparte un grupo humano y que guían su forma de pensar, actuar y comunicarse</strong>. Es un tejido vivo que decide el éxito o fracaso de cualquier innovación tecnológica.
+          </p>
+          <div id="t5-2" class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-1">
+              <h4 class="font-bold text-rose-300">Importancia en la adopción de tecnologías</h4>
+              <p>• <strong>Vence la resistencia al cambio:</strong> Culturas que toleran el error adoptan herramientas con curiosidad.</p>
+              <p>• <strong>Alineación con valores y cosmovisiones:</strong> Comunidades colectivas adoptan más rápido tecnologías colaborativas.</p>
+              <p>• <strong>Determinación de la usabilidad (i18n/L10n):</strong> Iconos, colores o flujos intuitivos en Occidente pueden ser confusos u ofensivos en Oriente.</p>
+            </div>
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-1">
+              <h4 class="font-bold text-amber-300">Importancia en el desarrollo de tecnologías</h4>
+              <p>• <strong>Priorización de problemas (El "Por qué" se inventa):</strong> Automatización industrial vs. salud o educación pública.</p>
+              <p>• <strong>Sesgos culturales en el software (Algoritmos y Datos):</strong> Datos de IA de una sola cultura generan decisiones discriminatorias.</p>
+              <p>• <strong>Entornos de innovación (Cultura Organizacional):</strong> Requiere horizontalidad y seguridad psicológica frente a estructuras hiperjerárquicas.</p>
+            </div>
+          </div>
+        </article>
+
+        <article id="t5-3" class="space-y-3 pt-6 border-t border-slate-800">
+          <h3 class="text-lg font-bold text-rose-400">5.3 Experiencias Culturales, Cultura Social y Cultura Organizacional</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+              <h4 class="font-bold text-white mb-1">1. Experiencias culturales</h4>
+              <p class="text-slate-300">Vivencias directas (socialización, educación, arte) que moldean los sesgos cognitivos y funcionan como los "lentes" con los que el individuo decodifica la realidad.</p>
+            </div>
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+              <h4 class="font-bold text-white mb-1">2. Cultura social ("Matriz madre")</h4>
+              <p class="text-slate-300">Tejido macroscópico compartido por una nación (idioma, religión, leyes, normas implícitas de qué es cortés o tabú) que brinda cohesión e identidad.</p>
+            </div>
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+              <h4 class="font-bold text-white mb-1">3. Cultura organizacional</h4>
+              <p class="text-slate-300">"Modo de vida" interno de una empresa compuesto por <strong>Artefactos visibles</strong>, <strong>Valores adoptados</strong> (misión, visión) y <strong>Supuestos básicos</strong>, influenciado por la cultura social y las experiencias previas.</p>
+            </div>
+          </div>
+          <div class="pt-2 border-t border-slate-800">
+            <p class="text-xs font-mono text-slate-400 mb-1">Bibliografía (APA 7):</p>
+            <p class="apa-ref">Schein, E. H. (2017). <em>Organizational culture and leadership</em> (5th ed.). Wiley.</p>
+          </div>
+        </article>
+
+        <!-- ACTIVIDAD LÚDICA S5 -->
+        <div id="act-s5" class="bg-slate-900 border border-rose-500/40 rounded-xl p-5 space-y-3">
+          <span class="text-xs font-mono uppercase text-amber-400 font-bold">🎮 Actividad Lúdica • Subcompetencia 5: Auditoría Cultural de Software</span>
+          <p class="text-xs text-slate-300">¿Qué elemento de la Cultura Organizacional comprende la misión, visión, estrategias y filosofías de una empresa de software?</p>
+          <div class="flex flex-wrap gap-2">
+            <button onclick="alert('¡Correcto! Los Valores adoptados comprenden la misión, visión, estrategias y filosofías de la organización.')" class="px-3 py-1.5 bg-rose-600 hover:bg-rose-500 text-white rounded text-xs font-semibold">Valores adoptados</button>
+            <button onclick="alert('Incorrecto. Las estructuras físicas y vestimenta son Artefactos visibles.')" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded text-xs">Artefactos visibles</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================= -->
+      <!-- SUBCOMPETENCIA 6                                  -->
+      <!-- ================================================= -->
+      <section id="sub6" class="bg-[#151C28] border border-lime-500/30 rounded-2xl p-6 space-y-8">
+        <div class="border-b border-slate-800 pb-4">
+          <span class="px-2.5 py-1 rounded bg-lime-500/10 text-lime-400 font-mono text-xs">SUBCOMPETENCIA 6</span>
+          <h2 class="text-2xl font-extrabold text-white mt-2">Huella Ecológica Digital, Compromiso Ambiental y Programación Verde</h2>
+        </div>
+
+        <article id="t6-1" class="space-y-3">
+          <h3 class="text-lg font-bold text-lime-400">6.1 La Huella Ecológica Digital y 6.2 ¿Dónde se genera el impacto?</h3>
+          <p class="text-sm text-slate-300">
+            La <strong>huella ecológica digital</strong> (o huella de carbono digital) mide el impacto ambiental que generan el uso, la producción y el almacenamiento de datos a través de la tecnología.
+          </p>
+          <div id="t6-2" class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-1">
+              <h4 class="font-bold text-lime-300">Infraestructura física real del mundo digital</h4>
+              <p>• <strong>Centros de datos:</strong> Funcionan 24/7; su refrigeración consume cerca del <strong>40% de su energía</strong>.</p>
+              <p>• <strong>Consumo global:</strong> Las TIC representan entre el <strong>2% y el 4%</strong> de las emisiones globales de gases de efecto invernadero.</p>
+              <p>• <strong>Inteligencia Artificial:</strong> Consultas y entrenamiento de modelos multiplican el consumo energético.</p>
+              <p>• <strong>Fabricación de dispositivos:</strong> Extracción de coltán, litio, cobalto y metales pesados provoca deforestación, contaminación del agua y residuos electrónicos.</p>
+            </div>
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-1.5">
+              <h4 class="font-bold text-amber-300">Ejemplos de impacto por acción digital</h4>
+              <p>🔍 <strong>Una búsqueda en internet:</strong> genera aproximadamente <strong>0.2 gramos de CO₂</strong>.</p>
+              <p>📧 <strong>Un correo electrónico de 1 MB:</strong> puede generar entre <strong>20 y 35 gramos de CO₂</strong>.</p>
+              <p>🎥 <strong>Una hora de videoconferencia o streaming HD:</strong> emite entre <strong>150 y 1,000 gramos de CO₂</strong>.</p>
+            </div>
+          </div>
+        </article>
+
+        <article id="t6-3" class="space-y-3 pt-6 border-t border-slate-800">
+          <h3 class="text-lg font-bold text-lime-400">6.3 Compromiso Ambiental y Programación Verde para Desarrolladores</h3>
+          <p class="text-xs text-slate-300">
+            El <strong>compromiso ambiental</strong> implica ahorrar recursos, gestionar residuos electrónicos, practicar el consumo responsable y usar energías limpias. En la ingeniería de software da paso a la <strong>programación verde (Green Coding)</strong>:
+          </p>
+          <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs text-slate-300">
+            <li class="bg-slate-900 p-3 rounded border border-slate-800"><strong>1. Optimización del código:</strong> Algoritmos eficientes que requieran menos ciclos de CPU.</li>
+            <li class="bg-slate-900 p-3 rounded border border-slate-800"><strong>2. Reducción en el uso de datos:</strong> Comprimir imágenes, políticas de caché eficaces y minimizar tráfico de red.</li>
+            <li class="bg-slate-900 p-3 rounded border border-slate-800"><strong>3. Limpieza de código:</strong> Eliminar funciones, módulos o BD antiguas que siguen consumiendo recursos en producción.</li>
+            <li class="bg-slate-900 p-3 rounded border border-slate-800"><strong>4. Infraestructura verde ("Green Hosting") y 5. Medición continua:</strong> Proveedores con energía renovable y monitoreo con herramientas como <em>Azure Emissions Dashboard</em> de Microsoft.</li>
+          </ul>
+          <div class="pt-2 border-t border-slate-800">
+            <p class="text-xs font-mono text-slate-400 mb-1">Bibliografía (APA 7):</p>
+            <p class="apa-ref">Belkhir, L., & Elmeligi, A. (2018). Assessing ICT global emissions footprint. <em>Journal of Cleaner Production</em>, 177, 448–463.</p>
+          </div>
+        </article>
+
+        <!-- ACTIVIDAD LÚDICA S6 -->
+        <div id="act-s6" class="bg-slate-900 border border-lime-500/40 rounded-xl p-5 space-y-3">
+          <span class="text-xs font-mono uppercase text-amber-400 font-bold">🎮 Actividad Lúdica • Subcompetencia 6: Calculadora de Huella Digital Diaria</span>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+            <div>
+              <label class="block text-slate-400">Búsquedas web hoy (0.2g c/u)</label>
+              <input id="co2-search" type="number" value="50" oninput="calcCO2()" class="w-full mt-1 bg-slate-950 border border-slate-700 rounded px-2 py-1 text-white">
+            </div>
+            <div>
+              <label class="block text-slate-400">Correos de 1 MB (25g prom.)</label>
+              <input id="co2-mail" type="number" value="10" oninput="calcCO2()" class="w-full mt-1 bg-slate-950 border border-slate-700 rounded px-2 py-1 text-white">
+            </div>
+            <div>
+              <label class="block text-slate-400">Horas Streaming HD (500g prom.)</label>
+              <input id="co2-stream" type="number" value="2" oninput="calcCO2()" class="w-full mt-1 bg-slate-950 border border-slate-700 rounded px-2 py-1 text-white">
+            </div>
+          </div>
+          <p id="co2-result" class="text-xs font-mono text-lime-400 font-bold">Emisión estimada hoy: 1,260 gramos de CO₂ (1.26 kg CO₂)</p>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ========================================================================= -->
+    <!-- VISTA 2: REPORTE ESCRITO FORMAL EXTENSO (30%) MODIFICADO EXCLUSIVAMENTE   -->
+    <!-- ========================================================================= -->
+    <section id="view-reporte" class="hidden lg:col-span-9 bg-slate-900 border border-slate-700 rounded-2xl p-8 sm:p-12 space-y-12">
+
+      <!-- HOJA DE PRESENTACIÓN INSTITUCIONAL (CON SALTO DE PÁGINA AL IMPRIMIR PDF) -->
+      <div class="cover-sheet min-h-[85vh] flex flex-col justify-between items-center text-center border-2 border-amber-500/40 rounded-2xl p-8 sm:p-12 report-page-break">
+        <div class="space-y-4 w-full">
+          <!-- Logo Oficial UNACH -->
+          <div class="flex justify-center mb-4">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Escudo_unach.png"
+                 onerror="this.onerror=null; this.src='https://www.unach.mx/images/identidad/escudo_unach.png';"
+                 alt="Logo Oficial UNACH"
+                 class="w-36 h-36 object-contain bg-white rounded-xl p-2 shadow-lg mx-auto">
+          </div>
+          <h1 class="text-2xl sm:text-3xl font-extrabold uppercase tracking-wider text-amber-400">
+            BENEMÉRITA UNIVERSIDAD AUTÓNOMA DE CHIAPAS
+          </h1>
+          <div class="w-40 h-1 bg-amber-500 mx-auto"></div>
+          <h2 class="text-lg sm:text-xl font-bold uppercase tracking-wide text-white">
+            ESCUELA DE TECNOLOGÍAS DIGITALES APLICADAS
+          </h2>
+          <p class="text-xs sm:text-sm font-mono uppercase text-slate-300">
+            Licenciatura en Ingeniería en Desarrollo y Tecnologías de Software (LIDTS)
+          </p>
+        </div>
+
+        <div class="my-8 py-6 px-6 border-y border-slate-700 max-w-2xl">
+          <p class="text-xs font-mono uppercase tracking-widest text-amber-400 mb-2">REPORTE ESCRITO INTEGRAL DEL CURSO (30%)</p>
+          <h3 class="text-lg sm:text-xl font-bold text-white leading-relaxed">
+            Análisis Teórico Sustentado, Importancia en la Ingeniería de Software y Actividades Lúdicas de las Subcompetencias 1 a 6
+          </h3>
+          <p class="text-base font-extrabold text-amber-400 mt-4 uppercase">
+            MATERIA: DESARROLLO HUMANO
+          </p>
+        </div>
+
+        <div class="w-full max-w-xl space-y-5 text-sm">
+          <div class="report-card bg-slate-950/80 border border-slate-800 rounded-xl p-5">
+            <p class="text-xs font-mono uppercase text-amber-400 font-bold mb-2">NOMBRES:</p>
+            <ul class="space-y-1 text-base font-bold text-white">
+              <li>Leonardo Pérez López</li>
+              <li>Joel Maza Delgado</li>
+              <li>Gonzalo Joshua Vásquez Natarén</li>
+            </ul>
+          </div>
+
+          <div class="report-card grid grid-cols-1 sm:grid-cols-2 gap-4 text-left bg-slate-950/80 border border-slate-800 rounded-xl p-5">
+            <div>
+              <p class="text-[11px] font-mono uppercase text-amber-400 font-bold">MATERIA:</p>
+              <p class="font-bold text-white">Desarrollo Humano</p>
+            </div>
+            <div>
+              <p class="text-[11px] font-mono uppercase text-amber-400 font-bold">PROFESOR:</p>
+              <p class="font-bold text-white">Miguel Ángel Guzmán Ovilla</p>
+            </div>
+            <div>
+              <p class="text-[11px] font-mono uppercase text-amber-400 font-bold">FECHA ACTUAL:</p>
+              <p class="font-bold text-white">10 de noviembre de 2026</p>
+            </div>
+            <div>
+              <p class="text-[11px] font-mono uppercase text-amber-400 font-bold">LUGAR:</p>
+              <p class="font-bold text-white">Tuxtla Gutiérrez, Chiapas</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ÍNDICE GENERAL EXTENSO DEL REPORTE -->
+      <div class="space-y-6 report-page-break">
+        <div class="border-b border-slate-700 pb-3">
+          <h3 class="text-xl font-extrabold text-amber-400 uppercase">ÍNDICE GENERAL DEL REPORTE ESCRITO</h3>
+          <p class="text-xs text-slate-400 mt-1">Compendio académico estructurado de las Subcompetencias 1 a 6</p>
+        </div>
+
+        <ol class="list-decimal pl-5 space-y-3 text-sm text-slate-200 leading-relaxed">
+          <li>
+            <strong>SUBCOMPETENCIA 1: COMPRENDE LA IMPORTANCIA DEL DESARROLLO HUMANO</strong>
+            <ul class="list-disc pl-5 mt-1 text-xs text-slate-400 space-y-1">
+              <li>1.1 ¿Qué es el desarrollo humano? Expansión de libertades, oportunidades y bienestar integral (Sen, 2000; CEUPE, s.f.).</li>
+              <li>1.2 La Pirámide de Maslow (Teoría de la Motivación Humana, 1943) y la Pirámide de Pruebas de Software de Mike Cohn (2009) bajo el modelo 70/20/10 (Unitarias, Integración y E2E).</li>
+              <li>1.3 Diferenciación psicobiológica y psicosocial: Temperamento, Carácter y Personalidad.</li>
+              <li>1.4 Identificación de Recursos Individuales en la Acción Ciudadana y el Rol del Ciudadano en la Comunidad.</li>
+              <li>1.5 Asunción de la Realidad Personal, Situación de Vida y Matriz de Diagnóstico FODA Personal (S1-AA-T4).</li>
+              <li>1.6 Importancia en el Desarrollo de Software (LIDTS), Actividad Lúdica S1 y Bibliografía en APA 7.</li>
+            </ul>
+          </li>
+          <li>
+            <strong>SUBCOMPETENCIA 2: EQUILIBRIO PERSONAL, CALIDAD DE VIDA Y PROYECTO DE VIDA</strong>
+            <ul class="list-disc pl-5 mt-1 text-xs text-slate-400 space-y-1">
+              <li>2.1 El Equilibrio y la Superación Personal: Claves de autorregulación y estrategias de resiliencia.</li>
+              <li>2.2 Índices de Calidad de Vida en México: Análisis comparativo de Global Citizen Solutions (#81 global), INEGI (8.62/10), OCDE y esperanza de vida (75.5 años).</li>
+              <li>2.3 Plan de Vida desde el Enfoque Humanista y Existencial (Carl Rogers y Viktor Frankl): Rubro Académico, Rubro Personal y Rubro Profesional.</li>
+              <li>2.4 Importancia en el Desarrollo de Software (LIDTS), Actividad Lúdica S2 y Bibliografía en APA 7.</li>
+            </ul>
+          </li>
+          <li>
+            <strong>SUBCOMPETENCIA 3: POTENCIALIDADES HUMANAS, AUTOCONOCIMIENTO Y AUTOESTIMA PARA TECNÓLOGOS</strong>
+            <ul class="list-disc pl-5 mt-1 text-xs text-slate-400 space-y-1">
+              <li>3.1 Potencialidades Humanas: Dimensiones Cognitiva/Intelectual, Emocional/Social, Creativa/Innovadora y Física/Motora; Factores determinantes.</li>
+              <li>3.2 El Autoconocimiento y el Autoconcepto: Acción exploratoria dinámica vs. Fotografía descriptiva de la identidad.</li>
+              <li>3.3 Autoestima (Enfoque para Tecnólogos): La Definición "Tech" (El Sistema Operativo Invisible), Componentes (<code>README.md</code>, Algoritmo de Resolución/Commits y Manejo de Excepciones <code>Try-Catch</code>), Síntomas con Bugs y Buenas Prácticas de Mantenimiento.</li>
+              <li>3.4 Importancia en el Desarrollo de Software (LIDTS), Actividad Lúdica S3 y Bibliografía en APA 7.</li>
+            </ul>
+          </li>
+          <li>
+            <strong>SUBCOMPETENCIA 4: VALORES HUMANOS, AXIOLOGÍA Y ÉTICA EN LA CIENCIA Y LA TECNOLOGÍA</strong>
+            <ul class="list-disc pl-5 mt-1 text-xs text-slate-400 space-y-1">
+              <li>4.1 ¿Qué son los valores? Tipos principales y ejemplos cotidianos esenciales.</li>
+              <li>4.2 Concepción Filosófica de Valor: Subjetivismo Axiológico vs. Objetivismo Axiológico.</li>
+              <li>4.3 Clasificación General de los Valores en 7 Categorías.</li>
+              <li>4.4 La Ética en la Ciencia y la Tecnología: Ciencia (el saber), Tecnología (el hacer) y Ética (el valor); Ética científica, Tecnoética y Bioética.</li>
+              <li>4.5 Importancia en el Desarrollo de Software (LIDTS), Actividad Lúdica S4 y Bibliografía en APA 7.</li>
+            </ul>
+          </li>
+          <li>
+            <strong>SUBCOMPETENCIA 5: LA CULTURA Y SU IMPORTANCIA EN LA ADOPCIÓN Y DESARROLLO DE TECNOLOGÍAS</strong>
+            <ul class="list-disc pl-5 mt-1 text-xs text-slate-400 space-y-1">
+              <li>5.1 Definición Antropológica de la Cultura como Tejido Vivo.</li>
+              <li>5.2 Importancia de la Cultura en la Adopción y en el Desarrollo de Tecnologías (Usabilidad Occidente/Oriente, Sesgos en IA y Cultura Organizacional).</li>
+              <li>5.3 Niveles Culturales: Experiencias Culturales ("Lentes"), Cultura Social ("Matriz Madre") y Cultura Organizacional (Modelo de Edgar Schein).</li>
+              <li>5.4 Importancia en el Desarrollo de Software (LIDTS), Actividad Lúdica S5 y Bibliografía en APA 7.</li>
+            </ul>
+          </li>
+          <li>
+            <strong>SUBCOMPETENCIA 6: HUELLA ECOLÓGICA DIGITAL, COMPROMISO AMBIENTAL Y PROGRAMACIÓN VERDE</strong>
+            <ul class="list-disc pl-5 mt-1 text-xs text-slate-400 space-y-1">
+              <li>6.1 Definición y Alcance de la Huella Ecológica Digital (Huella de Carbono Digital).</li>
+              <li>6.2 Infraestructura Física del Impacto Ambiental (Centros de datos, TIC, IA, Minería) y Ejemplos por Acción Digital.</li>
+              <li>6.3 Compromiso Ambiental y Prácticas de Programación Verde (Green Coding) para Desarrolladores de Software.</li>
+              <li>6.4 Importancia en el Desarrollo de Software (LIDTS), Actividad Lúdica S6 y Bibliografía en APA 7.</li>
+            </ul>
+          </li>
+          <li><strong>CONCLUSIONES FINALES Y BIBLIOGRAFÍA GENERAL CONSOLIDADA EN FORMATO APA 7</strong></li>
+        </ol>
+      </div>
+
+      <!-- DESARROLLO EXTENSO SUBCOMPETENCIA 1 -->
+      <div class="space-y-5 border-t border-slate-800 pt-8 text-sm text-slate-300 leading-relaxed text-justify report-page-break">
+        <h3 class="text-xl font-extrabold text-amber-400 uppercase">SUBCOMPETENCIA 1: COMPRENDE LA IMPORTANCIA DEL DESARROLLO HUMANO</h3>
+
+        <h4 class="text-base font-bold text-white">1.1 ¿Qué es el desarrollo humano?</h4>
+        <p>
+          El desarrollo humano se refiere al proceso mediante el cual las personas adquieren habilidades, conocimientos y capacidades que les permiten llevar una vida plena y satisfactoria. Este concepto va más allá de las simples medidas económicas, como el ingreso per cápita, y se centra en el bienestar integral del individuo. De acuerdo con la teoría de las capacidades de Amartya Sen (2000) y el Centro Europeo de Postgrado (CEUPE, s.f.), el desarrollo humano implica la expansión real de las libertades y oportunidades que las personas tienen para vivir de manera digna y alcanzar su máximo potencial.
+        </p>
+        <p>
+          El enfoque del desarrollo humano se basa en la idea de que cada persona tiene el derecho de desarrollarse plenamente en todas las áreas de su vida. Esto incluye el acceso efectivo a la educación, la salud, la participación activa en la vida social y política, y la posibilidad de tomar decisiones autónomas que afectan su vida. En este sentido, el desarrollo humano se convierte en un proceso continuo que se extiende a lo largo de toda la vida, desde la infancia hasta la vejez (CEUPE, s.f.; Papalia & Martorell, 2017).
+        </p>
+
+        <h4 class="text-base font-bold text-white pt-2">1.2 ¿Qué es la Pirámide de Maslow y qué es la Pirámide de Pruebas?</h4>
+        <p>
+          <strong>La Pirámide de Maslow (1943):</strong> La pirámide de Maslow representa una jerarquía de necesidades humanas y explica que, a medida que los individuos van satisfaciendo las necesidades más básicas, desarrollan nuevas necesidades y deseos más elevados. Abraham Maslow fue un psiquiatra y psicólogo humanista norteamericano que en el año 1943 presentó su <em>"Teoría de la Motivación Humana"</em>, en la que profundizó acerca de lo que de verdad interesaba y empujaba a actuar al ser humano de manera intrínseca, más allá de premios y castigos externos. Únicamente cuando una necesidad está satisfecha de <em>"manera razonable"</em> se disparará una nueva necesidad, por lo que las motivaciones surgen de necesidades no satisfechas (IEPP, s.f.; Maslow, 1943). Estas necesidades tienen un orden claro según su fuerza (las fisiológicas tienen más dominancia que las psicológicas):
+        </p>
+        <ul class="list-disc pl-6 space-y-1 text-xs">
+          <li><strong>1. Necesidades fisiológicas (Base):</strong> Respiración, alimentación, descanso, sexo, homeostasis.</li>
+          <li><strong>2. Necesidades de seguridad o protección:</strong> Seguridad física, de empleo, de recursos, moral, familiar, de salud y de propiedad privada.</li>
+          <li><strong>3. Necesidades de amor o afiliación:</strong> Amistad, afecto, intimidad sexual.</li>
+          <li><strong>4. Necesidades de reconocimiento:</strong> Autorreconocimiento, confianza, respeto, éxito.</li>
+          <li><strong>5. Necesidades de autorrealización (Cúspide):</strong> Moralidad, creatividad, espontaneidad, falta de prejuicios, aceptación de hechos y resolución de problemas.</li>
+        </ul>
+
+        <p>
+          <strong>La Pirámide de Pruebas de Software (Mike Cohn, 2009):</strong> Aunque varias personas han contribuido a popularizar el concepto, su defensor más destacado fue el ingeniero de software y pionero de Scrum, Mike Cohn, quien la introdujo en su libro de 2009, <em>Succeeding with Agile: Software Development Using Scrum</em>. Cohn propuso que la pirámide de pruebas aborda los desafíos de la gestión de pruebas automatizadas en metodologías ágiles, equilibrando esfuerzos bajo una regla general común de distribución aproximada de <strong>70/20/10</strong> (70% de pruebas unitarias, 20% de pruebas de integración y 10% de pruebas de extremo a extremo):
+        </p>
+        <ul class="list-disc pl-6 space-y-1.5 text-xs">
+          <li><strong>Pruebas unitarias (70% - Base de la pirámide):</strong> Se centran en una única funcionalidad y en pequeñas unidades de código. Suelen ser numerosas, pero rápidas de escribir y ejecutar. Los equipos deben ejecutarlas con frecuencia como parte de un proceso automatizado de Integración Continua (CI) para garantizar que los nuevos cambios no dañen la funcionalidad existente y mantener un alto nivel de calidad del código durante todo el ciclo de vida del desarrollo.</li>
+          <li><strong>Pruebas de integración (20% - Parte central):</strong> Verifican la interacción entre diferentes módulos o sistemas externos. En comparación con las unitarias, son menos numerosas, más costosas y más lentas de ejecutar. Se ejecutan con menos frecuencia en momentos clave del ciclo de desarrollo, como después de integrar características o cambios importantes en la rama principal, verificando la coherencia y funcionalidad generales del sistema.</li>
+          <li><strong>Pruebas de extremo a extremo o E2E (10% - Cúspide):</strong> Implican la verificación de toda la aplicación tal como la experimentarían los usuarios finales, incluyendo interfaces de usuario (UI), API, bases de datos y otros servicios. Son las más complejas y requieren mayor tiempo y recursos de ejecución, por lo que se realizan en hitos importantes, como antes de los lanzamientos, validando el flujo de trabajo completo en condiciones que simulan el uso real.</li>
+        </ul>
+
+        <h4 class="text-base font-bold text-white pt-2">1.3 Temperamento, Carácter y Personalidad</h4>
+        <p>
+          El <strong>temperamento</strong> es la parte biológica e innata con la que nacemos; el <strong>carácter</strong> se forma a través de las experiencias, la educación y el entorno social; y la <strong>personalidad</strong> es la suma total de ambos elementos, reflejando cómo pensamos, sentimos y actuamos en nuestra vida diaria (Allport, 1961; Cloninger, 2004):
+        </p>
+        <ul class="list-disc pl-6 space-y-1 text-xs">
+          <li><strong>Temperamento:</strong> <em>Origen:</em> Genético y biológico (sistema nervioso y hormonas). <em>Momento:</em> Se manifiesta desde los primeros meses de vida. <em>Cambio:</em> Es muy estable y difícil de modificar. <em>Ejemplo:</em> Reaccionar con rapidez o calma ante un ruido fuerte de forma espontánea.</li>
+          <li><strong>Carácter:</strong> <em>Origen:</em> Ambiental, cultural y educativo. <em>Momento:</em> Se desarrolla y se pule durante la infancia y adolescencia. <em>Cambio:</em> Se puede modificar y moldear con esfuerzo consciente y madurez. <em>Ejemplo:</em> La paciencia, la honestidad o la perseverancia que aprendemos con los años.</li>
+          <li><strong>Personalidad:</strong> <em>Origen:</em> La unión de la biología (temperamento) y la experiencia (carácter). <em>Momento:</em> Se consolida de forma global al llegar a la edad adulta. <em>Cambio:</em> Es relativamente estable, pero evoluciona ante vivencias importantes. <em>Ejemplo:</em> Ser una persona introvertida (<em>temperamento</em>) pero justa y trabajadora (<em>carácter</em>).</li>
+        </ul>
+
+        <h4 class="text-base font-bold text-white pt-2">1.4 Identificación de Recursos Individuales y el Rol del Ciudadano en la Comunidad</h4>
+        <p>
+          La identificación de recursos individuales permite reconocer las capacidades, conocimientos y herramientas propias de cada persona para incidir en su entorno, mientras que el rol ciudadano define la responsabilidad activa en la vida pública, la defensa de derechos y la construcción del bienestar comunitario (Cortina, 2009):
+        </p>
+        <ul class="list-disc pl-6 space-y-1 text-xs">
+          <li><strong>Recursos Individuales en la Acción Ciudadana:</strong> <em>1) Habilidades y talentos:</em> Capacidades personales como la comunicación, el liderazgo, el diseño o la organización logística aportables a proyectos colectivos. <em>2) Conocimiento y saberes:</em> Formación académica, experiencia laboral o conocimientos técnicos útiles para resolver problemas específicos del vecindario o la ciudad. <em>3) Tiempo y disponibilidad:</em> Margen de acción personal invertido en actividades comunitarias, voluntariados o espacios de diálogo público. <em>4) Redes de contacto:</em> Relaciones interpersonales y vínculos familiares, laborales o sociales que facilitan la convocatoria y difusión de iniciativas. <em>5) Acceso a información y tecnología:</em> Uso de herramientas digitales y canales de transparencia para fiscalizar y proponer mejoras en la gestión pública.</li>
+          <li><strong>El Rol del Ciudadano en la Comunidad:</strong> <em>1) Participación activa:</em> Ir más allá del voto electoral mediante presupuestos participativos, consultas o asambleas locales. <em>2) Corresponsabilidad social:</em> Asumir el cuidado del espacio público, el respeto a la diversidad y la protección del medio ambiente. <em>3) Vigilancia y exigencia:</em> Monitorear el trabajo de las autoridades, exigir rendición de cuentas y utilizar herramientas legales como el derecho de petición. <em>4) Articulación comunitaria:</em> Fomentar la cohesión social colaborando con vecinos y organizaciones civiles para atender carencias locales.</li>
+        </ul>
+
+        <h4 class="text-base font-bold text-white pt-2">1.5 Asunción de la Realidad Personal, Situación de Vida y FODA Personal (S1-AA-T4)</h4>
+        <p>
+          La asunción de la realidad personal y la situación de vida es el acto consciente de aceptar sin resistencia el punto exacto en el que te encuentras hoy. Significa dejar de negar las circunstancias actuales para frenar el desgaste de energía y empezar a tomar decisiones prácticas basadas en hechos reales (Hayes et al., 2012), sistematizadas mediante el análisis <strong>FODA Personal (Actividad S1-AA-T4)</strong>:
+        </p>
+        <ul class="list-disc pl-6 space-y-1 text-xs">
+          <li><strong>Claves para asumir tu situación actual:</strong> <em>Cero culpa</em> (acepta lo que hay sin juzgarte ni castigar el pasado); <em>Verdad sin filtros</em> (mira tus finanzas, salud, trabajo y relaciones tal como son hoy); <em>Fin de la queja</em> (deja de gastar energía en desear que el punto de partida fuera distinto); y <em>Punto cero</em> (entiende que este momento es solo tu base de operación, no una condena fija).</li>
+          <li><strong>Pasos para avanzar desde la aceptación:</strong> <em>Identifica lo que controlas</em> (separa los problemas que puedes cambiar hoy de los factores externos que no dependen de ti); <em>Pon metas pequeñas</em> (diseña acciones diarias muy fáciles de cumplir para mejorar un solo aspecto a la vez); <em>Ajusta tus expectativas</em> (alinea tus planes diarios con tus recursos actuales reales y no con ideales lejanos); y <em>Monitorea tu avance</em> (revisa cada semana qué funciona y cambia con rapidez lo que no da resultados).</li>
+        </ul>
+
+        <div class="report-card bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs space-y-1.5">
+          <p><strong class="text-amber-400">Importancia en el Desarrollo de Software (LIDTS):</strong> Permite diseñar tecnología centrada en las capacidades humanas (accesibilidad y <em>Civic Tech</em>), comprender que un equipo de desarrollo necesita cubrir sus niveles básicos de descanso y seguridad psicológica (Maslow) para alcanzar la resolución creativa de algoritmos complejos, sostener la calidad técnica en la regla 70/20/10 de pruebas automatizadas (Cohn, 2009), moldear el carácter colaborativo en Scrum y asumir la deuda técnica desde el "Punto Cero" sin culpas.</p>
+          <p><strong class="text-amber-400">Actividad Lúdica Relacionada (S1):</strong> Simulador Interactivo de la Pirámide de Pruebas 70/20/10 de Mike Cohn y Diagnóstico Estratégico FODA Personal (S1-AA-T4).</p>
+        </div>
+
+        <div class="pt-2">
+          <p class="text-xs font-mono text-amber-400 mb-1">Bibliografía de la Subcompetencia 1 (APA 7):</p>
+          <p class="apa-ref">Allport, G. W. (1961). <em>Pattern and growth in personality</em>. Holt, Rinehart & Winston.</p>
+          <p class="apa-ref">Centro Europeo de Postgrado [CEUPE]. (s.f.). <em>Desarrollo humano: Qué es, tipos y cómo influye</em>. https://www.ceupe.com/blog/desarrollo-humano-que-es-tipos-y-como-influye.html</p>
+          <p class="apa-ref">Cloninger, C. R. (2004). <em>Feeling good: The science of well-being</em>. Oxford University Press.</p>
+          <p class="apa-ref">Cohn, M. (2009). <em>Succeeding with Agile: Software Development Using Scrum</em>. Addison-Wesley Professional.</p>
+          <p class="apa-ref">Cortina, A. (2009). <em>Ciudadanos del mundo: Hacia una teoría de la ciudadanía</em> (3.ª ed.). Alianza Editorial.</p>
+          <p class="apa-ref">Hayes, S. C., Strosahl, K. D., & Wilson, K. G. (2012). <em>Acceptance and commitment therapy: The process and practice of mindful change</em> (2nd ed.). Guilford Press.</p>
+          <p class="apa-ref">Instituto Europeo de Psicología Positiva [IEPP]. (s.f.). <em>Pirámide de Maslow</em>. https://www.iepp.es/piramide-de-maslow/</p>
+          <p class="apa-ref">Maslow, A. H. (1943). A theory of human motivation. <em>Psychological Review</em>, 50(4), 370–396.</p>
+          <p class="apa-ref">Sen, A. (2000). <em>Desarrollo y libertad</em>. Editorial Planeta.</p>
+        </div>
+      </div>
+
+      <!-- DESARROLLO EXTENSO SUBCOMPETENCIA 2 -->
+      <div class="space-y-5 border-t border-slate-800 pt-8 text-sm text-slate-300 leading-relaxed text-justify report-page-break">
+        <h3 class="text-xl font-extrabold text-amber-400 uppercase">SUBCOMPETENCIA 2: EQUILIBRIO PERSONAL, CALIDAD DE VIDA Y PROYECTO DE VIDA</h3>
+
+        <h4 class="text-base font-bold text-white">2.1 El Equilibrio y la Superación Personal</h4>
+        <p>
+          El <strong>equilibrio y la superación personal</strong> son procesos continuos de transformación donde aprendes a gestionar tu bienestar físico, emocional y profesional (Covey, 2015; Goleman, 2018). Se articulan mediante cuatro claves para el equilibrio y cuatro estrategias de superación:
+        </p>
+        <ul class="list-disc pl-6 space-y-1 text-xs">
+          <li><strong>Claves para el equilibrio personal:</strong> <em>1) Autoconocimiento:</em> Identifica qué quieres, qué te inspira y cuáles son tus límites reales. <em>2) Gestión del tiempo:</em> Prioriza tareas y separa un espacio para el descanso, ya que no es falta de compromiso sino renovación. <em>3) Salud física y mental:</em> Duerme lo suficiente, come de manera saludable y practica la atención plena o autorreflexión. <em>4) Inteligencia emocional:</em> Desarrolla la autorregulación para gestionar tus emociones en lugar de reprimirlas.</li>
+          <li><strong>Estrategias de superación:</strong> <em>1) Establece objetivos claros:</em> Visualiza tus metas y registra tus avances de forma constante. <em>2) Fomenta la resiliencia:</em> Afronta los contratiempos con optimismo y aprende de los errores sin abandonarlos. <em>3) Aprende de forma continua:</em> Lee, adquiere nuevos conocimientos y mantén la mente abierta a opiniones diversas. <em>4) Rodéate de apoyo:</em> Comparte tus metas con amigos, familiares o grupos que impulsen tu bienestar.</li>
+        </ul>
+
+        <h4 class="text-base font-bold text-white pt-2">2.2 Índices de Calidad de Vida</h4>
+        <p>
+          El índice de calidad de vida en México varía según la institución que lo mida, ubicando al país en el <strong>puesto 81 a nivel global</strong> según el índice de <em>Global Citizen Solutions</em> debido a retos en seguridad y costo de vida, aunque los mexicanos reportan una alta satisfacción personal con un promedio de <strong>8.62 sobre 10</strong> de acuerdo con el Instituto Nacional de Estadística y Geografía (INEGI, 2024):
+        </p>
+        <ul class="list-disc pl-6 space-y-1 text-xs">
+          <li><strong>Satisfacción personal:</strong> La mayoría de la población califica positivamente su entorno familiar, social y laboral (8.62/10 en INEGI).</li>
+          <li><strong>Seguridad y entorno:</strong> El país presenta retos importantes en la tasa de homicidios y estrés ambiental en comparación con el promedio de la Organización para la Cooperación y el Desarrollo Económicos (OCDE, 2024).</li>
+          <li><strong>Salud:</strong> La esperanza de vida promedio ronda los <strong>75.5 años</strong>, siendo mayor en mujeres (<strong>79 años</strong>) que en hombres (<strong>72 años</strong>).</li>
+          <li><strong>Ciudades destacadas:</strong> Zonas como <strong>Mérida, Querétaro y San Luis Potosí</strong> suelen liderar los niveles de bienestar interno por su infraestructura y seguridad.</li>
+        </ul>
+
+        <h4 class="text-base font-bold text-white pt-2">2.3 Plan de Vida: Enfoque Humanista / Existencial (Carl Rogers, Viktor Frankl)</h4>
+        <p>
+          <strong>Definición:</strong> Es un plan consciente y reflexivo enfocado en la búsqueda de sentido de la existencia, donde el sujeto ejerce su libertad y autodeterminación para elegir quién quiere ser y cómo realizarse (Frankl, 2015; Rogers, 2011):
+        </p>
+        <ul class="list-disc pl-6 space-y-1.5 text-xs">
+          <li><strong>1. Rubro Académico:</strong> En el ámbito académico, estructurar un proyecto de vida le permite al estudiante asumir un compromiso directo con su propia formación intelectual y técnica. Dentro de una disciplina tan dinámica y demandante como la ingeniería de software, definir metas de aprendizaje facilita la adquisición de hábitos de estudio sólidos, el desarrollo del pensamiento crítico y la disciplina necesaria para dominar conceptos complejos, desde las ciencias computacionales hasta la resolución de problemas lógicos. Trazar este rumbo previene la improvisación, optimiza el rendimiento académico durante los semestres y fomenta una actitud de aprendizaje autónomo y continuo, indispensable para mantenerse al día con las constantes evoluciones tecnológicas.</li>
+          <li><strong>2. Rubro Personal:</strong> En la dimensión personal, el proyecto de vida actúa como una brújula para el autoconocimiento, la madurez emocional y el fortalecimiento de los valores individuales. La materia de Desarrollo Humano promueve la reflexión interna sobre las propias fortalezas, áreas de oportunidad y motivaciones profundas. Al articular este plan, el estudiante establece un equilibrio entre sus responsabilidades universitarias y su bienestar integral, cuidando su salud física y mental, fortaleciendo sus habilidades socioemocionales y desarrollando la resiliencia necesaria para afrontar la presión, los fracasos temporales y los retos cotidianos dentro y fuera del aula.</li>
+          <li><strong>3. Rubro Profesional:</strong> En el aspecto profesional, contar con un plan de vida trazado desde la etapa universitaria permite proyectar el perfil laboral al que se aspira ingresar una vez concluida la carrera. En el sector de las tecnologías de información, no basta con dominar la programación; se requiere visión estratégica, ética profesional, capacidad de trabajo en equipo y liderazgo. Un proyecto personal bien cimentado guía la elección de especializaciones, certificaciones, proyectos integradores y prácticas profesionales, orientando los esfuerzos hacia metas claras, como la innovación en desarrollo de software, la creación de soluciones tecnológicas sustentables o el emprendimiento de base tecnológica.</li>
+        </ul>
+
+        <div class="report-card bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs space-y-1.5">
+          <p><strong class="text-amber-400">Importancia en el Desarrollo de Software (LIDTS):</strong> Previene el síndrome de <em>burnout</em> en entregas intensivas (<em>sprints</em>), impulsa el aprendizaje continuo ante la evolución constante de lenguajes y frameworks, y proyecta estratégicamente la carrera del ingeniero hacia polos de desarrollo tecnológico o emprendimiento sustentable.</p>
+          <p><strong class="text-amber-400">Actividad Lúdica Relacionada (S2):</strong> Quiz Interactivo de Indicadores de Calidad de Vida (INEGI / OCDE / Global Citizen Solutions) y Plan de Vida en Ingeniería.</p>
+        </div>
+
+        <div class="pt-2">
+          <p class="text-xs font-mono text-amber-400 mb-1">Bibliografía de la Subcompetencia 2 (APA 7):</p>
+          <p class="apa-ref">Covey, S. R. (2015). <em>Los 7 hábitos de la gente altamente efectiva</em>. Paidós.</p>
+          <p class="apa-ref">Frankl, V. E. (2015). <em>El hombre en busca de sentido</em>. Herder Editorial.</p>
+          <p class="apa-ref">Goleman, D. (2018). <em>La inteligencia emocional</em>. Editorial Kairós.</p>
+          <p class="apa-ref">Instituto Nacional de Estadística y Geografía [INEGI]. (2024). <em>Indicadores de Bienestar Autorreportado de la Población Urbana (BIARE)</em>. https://www.inegi.org.mx</p>
+          <p class="apa-ref">Organización para la Cooperación y el Desarrollo Económicos [OCDE]. (2024). <em>Índice para una Vida Mejor (Better Life Index)</em>. https://www.oecdbetterlifeindex.org</p>
+          <p class="apa-ref">Rogers, C. R. (2011). <em>El proceso de convertirse en persona</em>. Paidós.</p>
+        </div>
+      </div>
+
+      <!-- DESARROLLO EXTENSO SUBCOMPETENCIA 3 -->
+      <div class="space-y-5 border-t border-slate-800 pt-8 text-sm text-slate-300 leading-relaxed text-justify report-page-break">
+        <h3 class="text-xl font-extrabold text-amber-400 uppercase">SUBCOMPETENCIA 3: POTENCIALIDADES HUMANAS, AUTOCONOCIMIENTO Y AUTOESTIMA PARA TECNÓLOGOS</h3>
+
+        <h4 class="text-base font-bold text-white">3.1 Potencialidades Humanas</h4>
+        <p>
+          Las <strong>potencialidades del ser humano</strong> son el conjunto de capacidades, talentos y recursos latentes que cada persona posee de manera innata y que puede desarrollar a lo largo de su vida para alcanzar metas y transformar su entorno (Gardner, 2016):
+        </p>
+        <ul class="list-disc pl-6 space-y-1 text-xs">
+          <li><strong>Dimensiones principales del potencial humano:</strong> <em>1) Cognitiva e Intelectual:</em> Permite razonar, aprender, memorizar y resolver problemas complejos. <em>2) Emocional y Social:</em> Facilita el autocontrol, la empatía, el afecto y la adaptación a distintas situaciones. <em>3) Creativa e Innovadora:</em> Impulsa la creación de ideas, la expresión artística y la búsqueda de nuevas soluciones. <em>4) Física y Motora:</em> Involucra el control del cuerpo, la destreza y la energía para la acción.</li>
+          <li><strong>Factores que influyen en su desarrollo:</strong> <em>1) La actitud:</em> Es el motor principal; una actitud positiva y motivada potencia cualquier habilidad adquirida o innata. <em>2) El entorno y la educación:</em> El acceso al aprendizaje, el apoyo emocional y las experiencias de vida moldean estas capacidades. <em>3) El autoconocimiento:</em> Reconocer las propias fortalezas y aceptar las limitaciones ayuda a trazar mejores estrategias de crecimiento personal.</li>
+        </ul>
+
+        <h4 class="text-base font-bold text-white pt-2">3.2 El Autoconocimiento y el Autoconcepto</h4>
+        <p>
+          El <strong>autoconocimiento</strong> es el proceso de investigar e identificar quién eres (tus virtudes, defectos, valores y emociones), mientras que el <strong>autoconcepto</strong> es la imagen o conclusión mental resultante de cómo te describes a ti mismo (Branden, 2011):
+        </p>
+        <ul class="list-disc pl-6 space-y-1 text-xs">
+          <li><strong>Autoconocimiento:</strong> <em>Qué es:</em> Acción y proceso de explorar tu interior para entender cómo eres. <em>Enfoque:</em> Dinámico y basado en la observación activa de tus actos, pensamientos y reacciones. <em>Para qué sirve:</em> Funciona como la base o herramienta para descubrir qué te motiva y qué necesitas mejorar en tu vida.</li>
+          <li><strong>Autoconcepto:</strong> <em>Qué es:</em> Conjunto de creencias, ideas y etiquetas que tienes sobre ti en las distintas áreas de tu vida (familiar, social, laboral o física). <em>Enfoque:</em> Más cognitivo y descriptivo; define "quién crees que eres" basándose en tus experiencias y en lo que los demás dicen de ti. <em>Para qué sirve:</em> Ayuda a estructurar tu identidad y determina cómo te presentas ante el mundo social.</li>
+          <li><strong>Principales diferencias:</strong> <em>Acción vs. Resultado:</em> El autoconocimiento es el <em>camino o la búsqueda</em> para descubrirte, y el autoconcepto es la <em>fotografía o descripción mental</em> que obtienes de esa búsqueda. <em>Profundidad:</em> El autoconocimiento entra en las motivaciones profundas y la esencia; el autoconcepto se queda en las características observables y los roles que desempeñas.</li>
+        </ul>
+
+        <h4 class="text-base font-bold text-white pt-2">3.3 Autoestima (Enfoque para Tecnólogos)</h4>
+        <ul class="list-disc pl-6 space-y-1.5 text-xs">
+          <li><strong>1. La Definición "Tech" (El Core):</strong> <em>La analogía:</em> La autoestima no es el contenido que produces, sino el <strong>sistema operativo (SO) invisible</strong> sobre el que corren todas tus aplicaciones (proyectos, exámenes, relaciones). <em>El concepto:</em> Si el sistema operativo está dañado o lleno de <em>bugs</em> de autocrítica, el <em>hardware</em> más potente (tu inteligencia) va a experimentar <em>crashes</em> constantes. Tener una autoestima saludable es optimizar el sistema para que resista picos de estrés sin colapsar.</li>
+          <li><strong>2. Los Componentes del Sistema (Tres módulos o capas de software):</strong> <em>Autoconcepto (La Documentación del Sistema):</em> Es el archivo <code>README.md</code> que escribes sobre ti mismo. <em>Autoeficacia (El Algoritmo de Resolución):</em> Es la confianza en tu capacidad para resolver problemas complejos y aprender tecnologías nuevas; se alimenta de tus victorias previas (tu <em>historial de commits</em> exitosos) (Bandura, 1997). <em>Autoaceptación (El Manejo de Excepciones / Try-Catch):</em> Cómo reacciona tu sistema cuando el código falla; una autoestima alta ejecuta un <em>bloque catch</em> para reparar el fallo sin destruir el servidor.</li>
+          <li><strong>3. Síntomas de una Autoestima "Con Bugs":</strong> <em>El Síndrome del Impostor (Over-fitting):</em> Creer que tus logros son solo "suerte" o un error del sistema que pronto alguien va a descubrir. <em>Parálisis por Análisis:</em> No lanzar un proyecto o no postular a una vacante porque el código "no es perfecto", olvidando que <em>hecho es mejor que perfecto</em> y que el software se actualiza en producción. <em>Vincular el Valor Personal al Rendimiento:</em> Si tu código compila a la primera, eres un dios; si hay un error de sintaxis, sientes que no sirves para la carrera (error de arquitectura mental).</li>
+          <li><strong>4. Buenas Prácticas para el "Mantenimiento" de la Autoestima:</strong> <em>Haz refactoring de tu diálogo interno</em> (monitorea tu consola mental para no inyectar código malicioso); <em>Celebra los commits pequeños</em> (cada <em>bug</em> resuelto es un avance en el repositorio de tu vida); y <em>Despliega en entornos seguros</em> (comparte tus dudas con comunidades de aprendizaje como hacer un <em>pull request</em> con tus amigos).</li>
+        </ul>
+
+        <div class="report-card bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs space-y-1.5">
+          <p><strong class="text-amber-400">Importancia en el Desarrollo de Software (LIDTS):</strong> Permite a los ingenieros en software superar el síndrome del impostor y la parálisis por análisis, tratando las fallas de compilación o de arquitectura mediante bloques mentales <code>Try-Catch</code> de aprendizaje continuo en lugar de autocrítica destructiva.</p>
+          <p><strong class="text-amber-400">Actividad Lúdica Relacionada (S3):</strong> Consola Interactiva <code>Try-Catch</code> de Autoestima para Tecnólogos y Refactorización del Diálogo Interno.</p>
+        </div>
+
+        <div class="pt-2">
+          <p class="text-xs font-mono text-amber-400 mb-1">Bibliografía de la Subcompetencia 3 (APA 7):</p>
+          <p class="apa-ref">Bandura, A. (1997). <em>Self-efficacy: The exercise of control</em>. W. H. Freeman.</p>
+          <p class="apa-ref">Branden, N. (2011). <em>Los seis pilares de la autoestima</em>. Paidós.</p>
+          <p class="apa-ref">Gardner, H. (2016). <em>Estructuras de la mente: La teoría de las inteligencias múltiples</em>. Fondo de Cultura Económica.</p>
+        </div>
+      </div>
+
+      <!-- DESARROLLO EXTENSO SUBCOMPETENCIA 4 -->
+      <div class="space-y-5 border-t border-slate-800 pt-8 text-sm text-slate-300 leading-relaxed text-justify report-page-break">
+        <h3 class="text-xl font-extrabold text-amber-400 uppercase">SUBCOMPETENCIA 4: VALORES HUMANOS, AXIOLOGÍA Y ÉTICA EN LA CIENCIA Y LA TECNOLOGÍA</h3>
+
+        <h4 class="text-base font-bold text-white">4.1 ¿Qué son los valores?</h4>
+        <p>
+          Los valores son <strong>principios y convicciones profundas que guían nuestra manera de pensar, sentir y actuar en la vida diaria</strong>. Funcionan como una brújula interna para tomar decisiones y convivir en armonía (Cortina, 2000; Savater, 2012):
+        </p>
+        <ul class="list-disc pl-6 space-y-1 text-xs">
+          <li><strong>Tipos principales de valores:</strong> <em>Personales</em> (creencias individuales que definen la propia identidad y prioridades); <em>Sociales</em> (principios que orientan la convivencia pacífica en comunidad); <em>Morales</em> (normas para distinguir entre las conductas correctas e incorrectas); <em>Familiares</em> (costumbres y afectos transmitidos dentro del hogar); y <em>Universales</em> (acuerdos compartidos por la gran mayoría de las culturas humanas).</li>
+          <li><strong>Ejemplos cotidianos esenciales:</strong> <em>Respeto</em> (aceptar y valorar la dignidad de cada persona); <em>Honestidad</em> (actuar y hablar siempre con la verdad y la rectitud); <em>Empatía</em> (comprender los sentimientos y las necesidades de los demás); <em>Responsabilidad</em> (cumplir con los compromisos y asumir las consecuencias de los actos); y <em>Solidaridad</em> (apoyar de forma desinteresada a quienes lo necesitan).</li>
+        </ul>
+
+        <h4 class="text-base font-bold text-white pt-2">4.2 Concepción de Valor y 4.3 Clasificación de los Valores</h4>
+        <p>
+          La <strong>concepción de valor</strong> se refiere a la interpretación, definición y origen que se le da a lo que consideramos "valioso" (Frondizi, 2010; Scheler, 2001). Existen dos corrientes principales: el <strong>Subjetivismo axiológico</strong> (sostiene que los valores <strong>dependen del sujeto</strong>; las cosas valen porque las deseamos, nos agradan o nos son útiles) y el <strong>Objetivismo axiológico</strong> (sostiene que los valores <strong>existen por sí mismos</strong> de forma independiente al sujeto; las cosas tienen un valor intrínseco como la belleza o la justicia, y el ser humano simplemente las descubre, no las inventa). En términos generales, un valor es una cualidad, propiedad o característica que se atribuye a objetos, acciones o personas, y que los hace estimables, deseables o valiosos.
+        </p>
+        <p>
+          <strong>Clasificación de los Valores:</strong> Se agrupan según el ámbito de la vida humana al que afecten o la necesidad que satisfagan:
+        </p>
+        <ul class="list-disc pl-6 space-y-1 text-xs">
+          <li><strong>1. Valores Éticos y Morales:</strong> Regulan la conducta humana hacia el bien y el deber ser; son la base de la convivencia social y la justicia (<em>Honestidad, justicia, responsabilidad, respeto, solidaridad</em>).</li>
+          <li><strong>2. Valores Estéticos:</strong> Se relacionan con la percepción de la belleza, el arte y la armonía visual o sensorial (<em>Belleza, fealdad, elegancia, armonía, lo sublime</em>).</li>
+          <li><strong>3. Valores Intelectuales o Cognitivos:</strong> Vinculados a la búsqueda del conocimiento, la verdad y el desarrollo de la razón (<em>Sabiduría, verdad, rigor científico, curiosidad, lucidez</em>).</li>
+          <li><strong>4. Valores Vitales y de la Salud:</strong> Se refieren a la preservación de la vida, el bienestar físico, la salud y la integridad del cuerpo (<em>Salud, vigor, juventud, bienestar, fortaleza</em>).</li>
+          <li><strong>5. Valores Económicos y Útiles:</strong> Tienen que ver con la utilidad práctica, la productividad, los bienes materiales y el comercio (<em>Eficacia, riqueza, éxito, utilidad, ahorro</em>).</li>
+          <li><strong>6. Valores Religiosos o Espirituales:</strong> Conectados con las creencias divinas, la fe, la trascendencia y el sentido de la existencia más allá de lo material (<em>Fe, santidad, piedad, caridad, trascendencia</em>).</li>
+          <li><strong>7. Valores Sociales y Políticos:</strong> Orientan la organización de las comunidades, las leyes y los derechos de los ciudadanos (<em>Libertad, igualdad, democracia, paz, patriotismo</em>).</li>
+        </ul>
+
+        <h4 class="text-base font-bold text-white pt-2">4.4 La Ética en la Ciencia y la Tecnología</h4>
+        <p>
+          La ética guía la responsabilidad y los límites morales de la actividad científica y tecnológica para asegurar que sus aplicaciones beneficien a la humanidad y al medio ambiente (Jonas, 1995):
+        </p>
+        <ul class="list-disc pl-6 space-y-1 text-xs">
+          <li><strong>Relación fundamental:</strong> <em>Ciencia (el saber):</em> Busca comprender cómo funciona el universo mediante hechos comprobables, pero no decide qué debe o no hacerse. <em>Tecnología (el hacer):</em> Aplica ese conocimiento para crear herramientas y transformar el entorno, pero carece de un juicio moral propio sobre sus consecuencias. <em>Ética (el valor):</em> Actúa como el freno y la brújula que evalúa los fines, los riesgos y los impactos sociales de ambos campos.</li>
+          <li><strong>Áreas clave de encuentro:</strong> <em>Ética científica</em> (exige honestidad, integridad, imparcialidad y cero tolerancia al plagio o la falsificación de datos en la investigación); <em>Tecnoética</em> (analiza los dilemas morales de la innovación técnica, como la privacidad digital, el uso de la inteligencia artificial y la ciberseguridad); y <em>Bioética</em> (regula la intervención en la vida humana, animal y vegetal).</li>
+          <li><strong>Por qué es indispensable hoy:</strong> La ciencia y la tecnología no son neutrales en sus efectos prácticos (pueden curar enfermedades o crear graves daños ecológicos y armamentistas), por lo que la ética obliga a los creadores e investigadores a anticipar los riesgos antes de lanzar innovaciones masivas a la sociedad.</li>
+        </ul>
+
+        <div class="report-card bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs space-y-1.5">
+          <p><strong class="text-amber-400">Importancia en el Desarrollo de Software (LIDTS):</strong> La Tecnoética es la columna vertebral del ingeniero de software frente al manejo de datos personales, criptografía, ciberseguridad e Inteligencia Artificial, asegurando que cada sistema desarrollado respete la dignidad y los derechos de los usuarios.</p>
+          <p><strong class="text-amber-400">Actividad Lúdica Relacionada (S4):</strong> Simulador de Decisiones del Comité de Tecnoética y Privacidad Digital.</p>
+        </div>
+
+        <div class="pt-2">
+          <p class="text-xs font-mono text-amber-400 mb-1">Bibliografía de la Subcompetencia 4 (APA 7):</p>
+          <p class="apa-ref">Cortina, A. (2000). <em>El mundo de los valores: Ética mínima y educación</em>. Editorial El Búho.</p>
+          <p class="apa-ref">Frondizi, R. (2010). <em>¿Qué son los valores? Introducción a la axiología</em>. Fondo de Cultura Económica.</p>
+          <p class="apa-ref">Jonas, H. (1995). <em>El principio de responsabilidad: Ensayo de una ética para la civilización tecnológica</em>. Herder.</p>
+          <p class="apa-ref">Scheler, M. (2001). <em>Ética: Nuevo ensayo de fundamentación de un personalismo ético</em>. Caparrós Editores.</p>
+        </div>
+      </div>
+
+      <!-- DESARROLLO EXTENSO SUBCOMPETENCIA 5 -->
+      <div class="space-y-5 border-t border-slate-800 pt-8 text-sm text-slate-300 leading-relaxed text-justify report-page-break">
+        <h3 class="text-xl font-extrabold text-amber-400 uppercase">SUBCOMPETENCIA 5: LA CULTURA Y SU IMPORTANCIA EN LA ADOPCIÓN Y DESARROLLO DE TECNOLOGÍAS</h3>
+
+        <h4 class="text-base font-bold text-white">5.1 La Cultura</h4>
+        <p>
+          Se define, en su sentido más amplio, como el <strong>conjunto de valores, creencias, conocimientos, costumbres, símbolos y normas que comparte un grupo humano y que guían su forma de pensar, actuar y comunicarse</strong> (Geertz, 2003). No es algo estático; es un tejido vivo que se aprende, se transmite de generación en generación y se transforma constantemente para responder a los retos del entorno. Cuando se cruza con el ámbito tecnológico, la cultura deja de ser un concepto abstracto y se convierte en el factor determinante que decide el éxito o el fracaso de cualquier innovación.
+        </p>
+
+        <h4 class="text-base font-bold text-white pt-2">5.2 Importancia de la Cultura en la Adopción y en el Desarrollo de Tecnologías</h4>
+        <ul class="list-disc pl-6 space-y-1.5 text-xs">
+          <li><strong>Importancia de la cultura en la adopción de tecnologías (La tecnología nunca se adopta en el vacío; solo se integra si resuena con los códigos culturales de sus usuarios):</strong>
+            <br>• <em>Vence la resistencia al cambio:</em> La adopción tecnológica exige modificar hábitos establecidos. Si una cultura promueve la experimentación y tolera el error, las personas adoptarán herramientas nuevas con curiosidad. Si la cultura es rígidamente tradicional o penaliza las fallas, la tecnología será rechazada o saboteada.
+            <br>• <em>Alineación con valores y cosmovisiones:</em> Las innovaciones prosperan cuando respetan o potencian los valores de una comunidad. En culturas con un alto sentido de colectividad, las tecnologías que facilitan la colaboración y la comunicación comunitaria se adoptan exponencialmente más rápido que aquellas que fomentan el aislamiento.
+            <br>• <em>Determinación de la usabilidad:</em> La forma en que entendemos un icono, un color o un flujo de navegación es puramente cultural. Una interfaz intuitiva en Occidente puede resultar confusa o incluso ofensiva en Oriente si no se adaptan los códigos simbólicos a la cultura local.
+          </li>
+          <li><strong>Importancia de la cultura en el desarrollo de tecnologías (Determina qué tipo de tecnología se crea en primer lugar):</strong>
+            <br>• <em>Priorización de problemas (El "Por qué" se inventa):</em> Los desarrolladores e ingenieros crean soluciones basados en lo que su cultura considera valioso o urgente (automatización industrial vs. salud o educación pública).
+            <br>• <em>Sesgos culturales en el software (Algoritmos y Datos):</em> Los creadores de tecnología inyectan inconscientemente sus propios valores y sesgos culturales en el código. En la Inteligencia Artificial, si los datos de entrenamiento reflejan la visión del mundo de una sola cultura, los sistemas resultantes tomarán decisiones inexactas o discriminatorias al aplicarse en entornos culturales diferentes.
+            <br>• <em>Entornos de innovación (Cultura Organizacional):</em> El desarrollo de tecnología de vanguardia requiere de una cultura interna que fomente la diversidad de pensamiento, la horizontalidad y la seguridad psicológica. Las estructuras hiperjerárquicas suelen ahogar las ideas disruptivas antes de que puedan convertirse en prototipos reales.
+          </li>
+        </ul>
+
+        <h4 class="text-base font-bold text-white pt-2">5.3 Experiencias Culturales, Cultura Social y Cultura Organizacional</h4>
+        <ul class="list-disc pl-6 space-y-1.5 text-xs">
+          <li><strong>Experiencias culturales:</strong> Son las vivencias directas, interacciones y eventos a través de los cuales un individuo absorbe, interpreta y asimila los elementos de su entorno (el nivel más empírico y personal). <em>Naturaleza:</em> Se adquieren mediante la socialización, la educación, la participación en festividades, el consumo de arte e interacciones cotidianas. <em>Impacto individual:</em> Moldean la identidad, los sesgos cognitivos y la sensibilidad estética y ética. <em>Perspectiva interpretativa:</em> Funcionan como el filtro o los "lentes" con los que el ser humano decodifica la realidad circundante.</li>
+          <li><strong>Cultura social:</strong> Representa el tejido macroscópico; es el conjunto organizado de pensamientos, creencias, prácticas, costumbres, normas, valores y símbolos compartidos por una comunidad o nación. <em>Cohesión e identidad:</em> Permite que un grupo se perciba como una unidad y se diferencie de otras agrupaciones. <em>Elementos clave:</em> Idioma, religión, estructura familiar, leyes jurídicas, mitos compartidos y normas implícitas de convivencia (qué se considera cortés, aceptable o tabú). <em>Base fundacional:</em> Funciona como la "matriz madre".</li>
+          <li><strong>Cultura organizacional:</strong> Es el sistema de <strong>significados, supuestos profundos, valores compartidos y normas</strong> que guían el comportamiento de los integrantes dentro de una empresa o institución específica (Schein, 2017). <em>Naturaleza interna:</em> Funciona como el "modo de vida" interno de la empresa. <em>Elementos constitutivos:</em> 1) <strong>Artefactos visibles</strong> (estructuras físicas, vestimenta, mitos empresariales, ritos y ceremonias); 2) <strong>Valores adoptados</strong> (misión, visión, estrategias y filosofías de la organización); y 3) <strong>Supuestos básicos</strong> (creencias inconscientes e invisibles arraigadas en los miembros sobre cómo se resuelven los problemas). <em>Interconexión con los niveles previos:</em> Siempre se verá influenciada por la <strong>cultura social</strong> de la región donde opera y las <strong>experiencias culturales</strong> previas de sus colaboradores.</li>
+        </ul>
+
+        <div class="report-card bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs space-y-1.5">
+          <p><strong class="text-amber-400">Importancia en el Desarrollo de Software (LIDTS):</strong> Permite diseñar interfaces con localización cultural (<code>i18n</code>/<code>L10n</code>), auditar conjuntos de datos de IA para erradicar sesgos culturales y construir equipos de ingeniería ágiles con alta seguridad psicológica.</p>
+          <p><strong class="text-amber-400">Actividad Lúdica Relacionada (S5):</strong> Auditoría Cultural de Software y Clasificador de Elementos de Cultura Organizacional de Schein.</p>
+        </div>
+
+        <div class="pt-2">
+          <p class="text-xs font-mono text-amber-400 mb-1">Bibliografía de la Subcompetencia 5 (APA 7):</p>
+          <p class="apa-ref">Geertz, C. (2003). <em>La interpretación de las culturas</em>. Editorial Gedisa.</p>
+          <p class="apa-ref">Hofstede, G., Hofstede, G. J., & Minkov, M. (2010). <em>Cultures and organizations: Software of the mind</em> (3rd ed.). McGraw-Hill.</p>
+          <p class="apa-ref">Schein, E. H. (2017). <em>Organizational culture and leadership</em> (5th ed.). Wiley.</p>
+        </div>
+      </div>
+
+      <!-- DESARROLLO EXTENSO SUBCOMPETENCIA 6 -->
+      <div class="space-y-5 border-t border-slate-800 pt-8 text-sm text-slate-300 leading-relaxed text-justify report-page-break">
+        <h3 class="text-xl font-extrabold text-amber-400 uppercase">SUBCOMPETENCIA 6: HUELLA ECOLÓGICA DIGITAL, COMPROMISO AMBIENTAL Y PROGRAMACIÓN VERDE</h3>
+
+        <h4 class="text-base font-bold text-white">6.1 La Huella Ecológica Digital y 6.2 ¿Dónde se genera el impacto?</h4>
+        <p>
+          La <strong>huella ecológica digital</strong> (o huella de carbono digital) mide el impacto ambiental que generan el uso, la producción y el almacenamiento de datos a través de la tecnología (Belkhir & Elmeligi, 2018). Aunque el mundo digital parezca "invisible" o esté alojado en una nube abstracta, depende de infraestructura física real:
+        </p>
+        <ul class="list-disc pl-6 space-y-1 text-xs">
+          <li><strong>Centros de datos:</strong> Grandes edificios llenos de servidores que funcionan 24/7 y requieren grandes cantidades de electricidad y agua para su refrigeración (la cual consume cerca del <strong>40% de su energía</strong>).</li>
+          <li><strong>Consumo global:</strong> Las Tecnologías de la Información y la Comunicación (TIC) representan entre el <strong>2% y el 4% de las emisiones globales de gases de efecto invernadero</strong>.</li>
+          <li><strong>Inteligencia Artificial:</strong> Las consultas a sistemas de IA y el entrenamiento de modelos multiplican significativamente el consumo energético.</li>
+          <li><strong>Fabricación de dispositivos:</strong> La extracción de minerales (como <strong>coltán, litio, cobalto y metales pesados</strong>) provoca deforestación, contaminación del agua y residuos electrónicos.</li>
+          <li><strong>Ejemplos de impacto por acción digital:</strong> <em>Una búsqueda en internet</em> genera aproximadamente <strong>0.2 gramos de CO₂</strong>; <em>un correo electrónico de 1 MB</em> puede generar entre <strong>20 y 35 gramos de CO₂</strong>; y <em>una hora de videoconferencia o streaming en alta calidad</em> emite entre <strong>150 y 1,000 gramos de CO₂</strong>.</li>
+        </ul>
+
+        <h4 class="text-base font-bold text-white pt-2">6.3 Compromiso Ambiental y Programación Verde para Desarrolladores de Software</h4>
+        <p>
+          El <strong>compromiso ambiental</strong> implica reducir el impacto de nuestras actividades diarias en el planeta mediante el ahorro de recursos y la disminución de emisiones. En el ámbito tecnológico, esto da paso a la <strong>programación verde</strong> y al desarrollo sostenible:
+        </p>
+        <ul class="list-disc pl-6 space-y-1 text-xs">
+          <li><strong>Hábitos cotidianos y decisiones corporativas:</strong> <em>Ahorro de recursos</em> (reducir el consumo de energía eléctrica, agua y combustibles fósiles); <em>Gestión de residuos</em> (reciclar, evitar plásticos de un solo uso y desechar correctamente aparatos electrónicos); <em>Consumo responsable</em> (elegir productos locales, ecológicos y con menor huella de carbono); y <em>Uso de energías limpias</em> (apostar por fuentes renovables siempre que sea posible).</li>
+          <li><strong>Compromiso ambiental para desarrolladores de software (Green Coding):</strong>
+            <br>• <em>1. Optimización del código:</em> Escribir algoritmos eficientes que requieran menos ciclos de procesamiento y reduzcan el gasto energético del hardware.
+            <br>• <em>2. Reducción en el uso de datos:</em> Comprimir imágenes, usar políticas de caché eficaces y minimizar el intercambio innecesario de información en la red.
+            <br>• <em>3. Limpieza de código:</em> Eliminar funciones, módulos o bases de datos antiguas que ya no se usan pero siguen consumiendo recursos en producción.
+            <br>• <em>4. Infraestructura verde ("Green Hosting"):</em> Alojar aplicaciones en proveedores de la nube que utilicen energía renovable y elegir regiones geográficas con menor huella de carbono.
+            <br>• <em>5. Medición continua:</em> Utilizar herramientas analíticas como el <em>Azure Emissions Dashboard</em> de Microsoft o soluciones similares para monitorear el impacto de la infraestructura digital.
+          </li>
+        </ul>
+
+        <div class="report-card bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs space-y-1.5">
+          <p><strong class="text-amber-400">Importancia en el Desarrollo de Software (LIDTS):</strong> Concientiza al ingeniero en software sobre el costo energético e hídrico real de los servidores y lo dota de técnicas de <em>Green Coding</em> para optimizar ciclos de CPU, ancho de banda y almacenamiento en la nube.</p>
+          <p><strong class="text-amber-400">Actividad Lúdica Relacionada (S6):</strong> Calculadora Interactiva en Tiempo Real de Huella de Carbono Digital Diaria (Búsquedas, Correos y Streaming HD).</p>
+        </div>
+
+        <div class="pt-2">
+          <p class="text-xs font-mono text-amber-400 mb-1">Bibliografía de la Subcompetencia 6 (APA 7):</p>
+          <p class="apa-ref">Belkhir, L., & Elmeligi, A. (2018). Assessing ICT global emissions footprint. <em>Journal of Cleaner Production</em>, 177, 448–463.</p>
+          <p class="apa-ref">The Shift Project. (2019). <em>Lean ICT: Towards digital sobriety</em>. https://theshiftproject.org/en/article/lean-ict-our-new-report/</p>
+        </div>
+      </div>
+
+      <!-- CONCLUSIONES FINALES Y BIBLIOGRAFÍA GENERAL CONSOLIDADA -->
+      <div class="space-y-4 text-sm text-slate-300 leading-relaxed border-t border-slate-800 pt-8 text-justify">
+        <h3 class="text-xl font-extrabold text-amber-400 uppercase">CONCLUSIONES FINALES</h3>
+        <p>
+          A lo largo del análisis exhaustivo de las seis subcompetencias que integran la unidad de aprendizaje de <strong>Desarrollo Humano</strong> en la <strong>Escuela de Tecnologías Digitales Aplicadas</strong> de la <strong>Benemérita Universidad Autónoma de Chiapas (UNACH)</strong>, queda demostrado que la formación de un Ingeniero en Desarrollo y Tecnologías de Software (LIDTS) exige una convergencia indisoluble entre la excelencia técnica y la madurez humanista.
+        </p>
+        <p>
+          En las primeras tres subcompetencias, el estudio del desarrollo humano como expansión de libertades, la analogía estructural entre la Pirámide de Maslow (1943) y la Pirámide de Pruebas Automatizadas 70/20/10 de Mike Cohn (2009), la distinción entre temperamento, carácter y personalidad, la aceptación de la realidad desde el "Punto Cero" mediante el FODA Personal (S1-AA-T4), la lectura crítica de los índices de calidad de vida en México (Puesto #81 global e INEGI 8.62/10), el Plan de Vida existencial y la arquitectura de la Autoestima para Tecnólogos (como Sistema Operativo invisible con bloques <code>Try-Catch</code> de autoaceptación), proporcionan al estudiante los cimientos psicológicos necesarios para resistir la alta exigencia cognitiva de la carrera sin caer en el síndrome del impostor ni en el agotamiento profesional.
+        </p>
+        <p>
+          Finalmente, las subcompetencias 4, 5 y 6 proyectan el ejercicio de la ingeniería hacia el bienestar colectivo y planetario: la axiología y la Tecnoética fungen como brújula y freno moral frente a los riesgos de la Inteligencia Artificial y la privacidad digital; el entendimiento de las experiencias culturales, la cultura social y la cultura organizacional asegura tecnologías inclusivas, libres de sesgos algorítmicos y desarrolladas en entornos de seguridad psicológica; y el compromiso ambiental materializado en la <strong>Programación Verde (Green Coding)</strong> mitiga la huella ecológica digital de los centros de datos. En conclusión, cada línea de código escrita con ética, empatía cultural y eficiencia energética es una contribución directa al desarrollo humano sostenible.
+        </p>
+
+        <div class="pt-6 border-t border-slate-800">
+          <h3 class="text-lg font-extrabold text-amber-400 uppercase mb-3">BIBLIOGRAFÍA GENERAL EN FORMATO APA (7.ª EDICIÓN)</h3>
+          <p class="apa-ref">Allport, G. W. (1961). <em>Pattern and growth in personality</em>. Holt, Rinehart & Winston.</p>
+          <p class="apa-ref">Bandura, A. (1997). <em>Self-efficacy: The exercise of control</em>. W. H. Freeman.</p>
+          <p class="apa-ref">Belkhir, L., & Elmeligi, A. (2018). Assessing ICT global emissions footprint: Trends to 2040 & recommendations. <em>Journal of Cleaner Production</em>, 177, 448–463.</p>
+          <p class="apa-ref">Branden, N. (2011). <em>Los seis pilares de la autoestima</em>. Paidós.</p>
+          <p class="apa-ref">Centro Europeo de Postgrado [CEUPE]. (s.f.). <em>Desarrollo humano: Qué es, tipos y cómo influye</em>. https://www.ceupe.com/blog/desarrollo-humano-que-es-tipos-y-como-influye.html</p>
+          <p class="apa-ref">Cloninger, C. R. (2004). <em>Feeling good: The science of well-being</em>. Oxford University Press.</p>
+          <p class="apa-ref">Cohn, M. (2009). <em>Succeeding with Agile: Software Development Using Scrum</em>. Addison-Wesley Professional.</p>
+          <p class="apa-ref">Cortina, A. (2000). <em>El mundo de los valores: Ética mínima y educación</em>. Editorial El Búho.</p>
+          <p class="apa-ref">Cortina, A. (2009). <em>Ciudadanos del mundo: Hacia una teoría de la ciudadanía</em> (3.ª ed.). Alianza Editorial.</p>
+          <p class="apa-ref">Covey, S. R. (2015). <em>Los 7 hábitos de la gente altamente efectiva</em>. Paidós.</p>
+          <p class="apa-ref">Frankl, V. E. (2015). <em>El hombre en busca de sentido</em>. Herder Editorial.</p>
+          <p class="apa-ref">Frondizi, R. (2010). <em>¿Qué son los valores? Introducción a la axiología</em>. Fondo de Cultura Económica.</p>
+          <p class="apa-ref">Gardner, H. (2016). <em>Estructuras de la mente: La teoría de las inteligencias múltiples</em>. Fondo de Cultura Económica.</p>
+          <p class="apa-ref">Geertz, C. (2003). <em>La interpretación de las culturas</em>. Editorial Gedisa.</p>
+          <p class="apa-ref">Goleman, D. (2018). <em>La inteligencia emocional</em>. Editorial Kairós.</p>
+          <p class="apa-ref">Hayes, S. C., Strosahl, K. D., & Wilson, K. G. (2012). <em>Acceptance and commitment therapy: The process and practice of mindful change</em> (2nd ed.). Guilford Press.</p>
+          <p class="apa-ref">Hofstede, G., Hofstede, G. J., & Minkov, M. (2010). <em>Cultures and organizations: Software of the mind</em> (3rd ed.). McGraw-Hill.</p>
+          <p class="apa-ref">Instituto Europeo de Psicología Positiva [IEPP]. (s.f.). <em>Pirámide de Maslow</em>. https://www.iepp.es/piramide-de-maslow/</p>
+          <p class="apa-ref">Instituto Nacional de Estadística y Geografía [INEGI]. (2024). <em>Indicadores de Bienestar Autorreportado de la Población Urbana (BIARE)</em>. https://www.inegi.org.mx</p>
+          <p class="apa-ref">Jonas, H. (1995). <em>El principio de responsabilidad: Ensayo de una ética para la civilización tecnológica</em>. Herder.</p>
+          <p class="apa-ref">Maslow, A. H. (1943). A theory of human motivation. <em>Psychological Review</em>, 50(4), 370–396.</p>
+          <p class="apa-ref">Organización para la Cooperación y el Desarrollo Económicos [OCDE]. (2024). <em>Índice para una Vida Mejor (Better Life Index)</em>. https://www.oecdbetterlifeindex.org</p>
+          <p class="apa-ref">Rogers, C. R. (2011). <em>El proceso de convertirse en persona</em>. Paidós.</p>
+          <p class="apa-ref">Savater, F. (2012). <em>Ética para Amador</em>. Ariel.</p>
+          <p class="apa-ref">Schein, E. H. (2017). <em>Organizational culture and leadership</em> (5th ed.). Wiley.</p>
+          <p class="apa-ref">Scheler, M. (2001). <em>Ética: Nuevo ensayo de fundamentación de un personalismo ético</em>. Caparrós Editores.</p>
+          <p class="apa-ref">Sen, A. (2000). <em>Desarrollo y libertad</em>. Editorial Planeta.</p>
+          <p class="apa-ref">The Shift Project. (2019). <em>Lean ICT: Towards digital sobriety</em>. https://theshiftproject.org/en/article/lean-ict-our-new-report/</p>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <script>
+    function switchView(view) {
+      const blog = document.getElementById('view-blog');
+      const rep = document.getElementById('view-reporte');
+      const bBlog = document.getElementById('btn-blog');
+      const bRep = document.getElementById('btn-reporte');
+      if (view === 'reporte') {
+        blog.classList.add('hidden');
+        rep.classList.remove('hidden');
+        bRep.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-amber-500 text-slate-950 transition';
+        bBlog.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-200 border border-slate-700 transition';
+      } else {
+        rep.classList.add('hidden');
+        blog.classList.remove('hidden');
+        bBlog.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-amber-500 text-slate-950 transition';
+        bRep.className = 'px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-200 border border-slate-700 transition';
+      }
+    }
+
+    function checkQAPyramid() {
+      const u = Number(document.getElementById('qa-unit').value);
+      const i = Number(document.getElementById('qa-int').value);
+      const e = Number(document.getElementById('qa-e2e').value);
+      const out = document.getElementById('qa-feedback');
+      if (u === 70 && i === 20 && e === 10) {
+        out.textContent = '✅ Balance óptimo 70/20/10 (Mike Cohn, 2009): Base sólida en CI y alta velocidad de respuesta.';
+        out.className = 'text-xs font-mono text-emerald-400';
+      } else {
+        out.textContent = `⚠️ Distribución actual (${u}/${i}/${e}): Ajusta a 70% Unitarias, 20% Integración y 10% E2E para equilibrar costo y velocidad.`;
+        out.className = 'text-xs font-mono text-amber-400';
+      }
+    }
+
+    function calcCO2() {
+      const s = Number(document.getElementById('co2-search').value) || 0;
+      const m = Number(document.getElementById('co2-mail').value) || 0;
+      const st = Number(document.getElementById('co2-stream').value) || 0;
+      const total = (s * 0.2) + (m * 25) + (st * 500);
+      document.getElementById('co2-result').textContent =
+        `Emisión estimada hoy: ${total.toFixed(1)} gramos de CO₂ (${(total / 1000).toFixed(2)} kg CO₂)`;
+    }
+  </script>
+</body>
+</html>
